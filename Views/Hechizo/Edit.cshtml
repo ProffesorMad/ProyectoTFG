@@ -1,14 +1,16 @@
 ﻿@model ProyectoTFG_League.Models.HechizoModelo
 
 @{
-    ViewData["Title"] = "Añadir Hechizo";
+    ViewData["Title"] = "Editar Hechizo";
 }
 
-<h1>Añadir Hechizo</h1>
+<h1>Editar Hechizo</h1>
 
+<hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <input type="hidden" asp-for="ID" />
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
                 <input asp-for="Nombre" class="form-control" />
@@ -16,8 +18,7 @@
             </div>
             <br />
             <div class="form-group">
-                <label asp-for="DescripcionH" class="control-label"></label>
-                <label asp-for="DescripcionH" class="control-label"></label>
+                <label asp-for="DescripcionH" class="control-label">Descripcion</label>
                 <input asp-for="DescripcionH" class="form-control" />
                 <span asp-validation-for="DescripcionH" class="text-danger"></span>
             </div>
@@ -35,7 +36,7 @@
             </div>
             <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
             <br />
         </form>
@@ -43,7 +44,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Cancelar</a>
 </div>
 
 @section Scripts {

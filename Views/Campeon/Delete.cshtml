@@ -1,0 +1,34 @@
+﻿@model ProyectoTFG_League.Models.CampeonModelo
+
+@{
+    ViewData["Title"] = "Eliminar Campeon";
+}
+
+<h1>Eliminar Campeón</h1>
+<br />
+<h3>¿Estás Seguro de que quieres Eliminar este Campeón?</h3>
+<br />
+<div>
+    <hr />
+    <dl class="row">
+        <dd class="col-sm-10">
+            @if (Model.Imagen != null)
+            {
+                <img src="data:image;base64,@(Convert.ToBase64String(Model.Imagen))" alt="Imagen" class="img-thumbnail" width="75" height="75" />
+            }
+            else
+            {
+                <p>No Image</p>
+            }
+        </dd>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |||
+        <a asp-action="Index" class="btn btn-primary">Cancelar</a>
+    </form>
+</div>

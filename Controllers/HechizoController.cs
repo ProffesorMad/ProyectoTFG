@@ -66,42 +66,88 @@ namespace ProyectoTFG_League.Controllers
         // GET: HechizoController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var hechizo = Contexto.Hechizos.Find(id);
+            if (hechizo == null)
+            {
+                return NotFound();
+            }
+            return View(hechizo);
         }
 
         // POST: HechizoController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, HechizoModelo hechizo, IFormFile imagen)
         {
+            if (id != hechizo.ID)
+            {
+                return BadRequest();
+            }
+
+            var existingHechizo = Contexto.Hechizos.Find(id);
+            if (existingHechizo == null)
+            {
+                return NotFound();
+            }
+
+            if (imagen != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    imagen.CopyTo(memoryStream);
+                    existingHechizo.Imagen = memoryStream.ToArray();
+                }
+            }
+
+            existingHechizo.Nombre = hechizo.Nombre;
+            existingHechizo.DescripcionH = hechizo.DescripcionH;
+            existingHechizo.Enfriamiento = hechizo.Enfriamiento;
+
+            Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<HechizoModelo> entityEntry = Contexto.Hechizos.Update(existingHechizo);
+            Contexto.SaveChanges();
+
             try
             {
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(existingHechizo);
             }
         }
 
         // GET: HechizoController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var hechizo = Contexto.Hechizos.Find(id);
+            if (hechizo == null)
+            {
+                return NotFound();
+            }
+            return View(hechizo);
         }
 
         // POST: HechizoController/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult DeleteConfirmed(int id)
         {
+            var hechizo = Contexto.Hechizos.Find(id);
+            if (hechizo == null)
+            {
+                return NotFound();
+            }
+
+            Contexto.Hechizos.Remove(hechizo);
+            Contexto.SaveChanges();
+
             try
             {
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(hechizo);
             }
         }
     }

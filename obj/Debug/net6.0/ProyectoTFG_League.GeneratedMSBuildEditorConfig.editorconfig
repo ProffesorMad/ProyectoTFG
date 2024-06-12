@@ -20,12 +20,28 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FtcGVvblxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/pablg/Desktop/ProyectoTFG_League/Views/Campeon/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FtcGVvblxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pablg/Desktop/ProyectoTFG_League/Views/Campeon/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FtcGVvblxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/pablg/Desktop/ProyectoTFG_League/Views/Campeon/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FtcGVvblxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/pablg/Desktop/ProyectoTFG_League/Views/Hechizo/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGVjaGl6b1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pablg/Desktop/ProyectoTFG_League/Views/Hechizo/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGVjaGl6b1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pablg/Desktop/ProyectoTFG_League/Views/Hechizo/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGVjaGl6b1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/pablg/Desktop/ProyectoTFG_League/Views/Hechizo/Index.cshtml]
