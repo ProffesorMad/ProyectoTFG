@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\ProyectoTFG_League.props" />
+</Project>

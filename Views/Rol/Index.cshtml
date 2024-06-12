@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ProyectoTFG_League.Models.RolModelo>
+
+@{
+    ViewData["Title"] = "Roles";
+}
+
+<h1 class="text-center">Lista de Roles</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-center">
+                Nombre
+            </th>
+            <th class="text-center">
+                Descripcion
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.DescripcionR)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,52 @@
+﻿@model ProyectoTFG_League.Models.HechizoModelo
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>HechizoModelo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="DescripcionH" class="control-label"></label>
+                <input asp-for="DescripcionH" class="form-control" />
+                <span asp-validation-for="DescripcionH" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Enfriamiento" class="control-label"></label>
+                <input asp-for="Enfriamiento" class="form-control" />
+                <span asp-validation-for="Enfriamiento" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label for="imagen" class="control-label">Imagen</label>
+                <input type="file" name="imagen" class="form-control" />
+                <span asp-validation-for="Imagen" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+            <br />
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,52 @@
+﻿@model ProyectoTFG_League.Models.ModoJuegoModelo
+
+@{
+    ViewData["Title"] = "Agregar Modo de Juego";
+}
+
+<h1 class="text-center">Agregar Modo de Juego</h1>
+<br />
+<form asp-action="Create" method="post" class="form-horizontal">
+    <div class="form-group">
+        <label asp-for="Nombre" class="control-label col-md-2">Nombre</label>
+        <div class="col-md-5">
+            <input asp-for="Nombre" class="form-control" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+  <div class="form-group">
+        <label asp-for="Tipo" class="control-label col-md-2">Tipo</label>
+        <div class="col-md-2">
+            <select asp-for="Tipo" class="form-control">
+                @foreach (var tipo in ViewBag.Tipos)
+                {
+                        <option value="@tipo">@tipo</option>
+                }
+            </select>
+            <span asp-validation-for="Tipo" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="DescripcionM" class="control-label col-md-2">Descripción</label>
+        <div class="col-md-5">
+            <textarea asp-for="DescripcionM" class="form-control"></textarea>
+            <span asp-validation-for="DescripcionM" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Crear" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+<br />
+<div>
+    <a asp-action="Index">Vuelta al Index</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

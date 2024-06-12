@@ -1,0 +1,85 @@
+﻿@model IEnumerable<ProyectoTFG_League.Models.HechizoModelo>
+
+@{
+    ViewData["Title"] = "Hechizos de Invocador";
+}
+
+<style>
+    .text-center {
+        text-align: center;
+    }
+    .font-weight-bold {
+        font-weight: bold;
+    }
+    .img-thumbnail {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .table {
+        margin-top: 20px;
+    }
+    .table th, .table td {
+        vertical-align: middle;
+    }
+    .btn-sm {
+        margin: 2px;
+    }
+</style>
+
+<h1>Hechizos de Invocador</h1>
+<br />
+<p>En la actualidad hay disponibles un total de 11 hechizos de invocador en League of Legends, son los siguientes:</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th class="text-center">
+                Imagen
+            </th>
+            <th class="text-center">
+                Nombre
+            </th>
+            <th class="text-center">
+                Descripción
+            </th>
+            <th class="text-center">
+                Enfriamiento (segundos)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (item.Imagen != null)
+                    {
+                        <img src="data:image;base64,@(Convert.ToBase64String(item.Imagen))" alt="Imagen" class="img-thumbnail" width="75" height="75" />
+                    }
+                    else
+                    {
+                        <p>No Image</p>
+                    }
+                </td>
+                <td class="text-center font-weight-bold">
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.DescripcionH)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.Enfriamiento)
+                </td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
