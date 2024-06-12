@@ -35,15 +35,29 @@ namespace ProyectoTFG_League.Controllers
         // POST: RolController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(RolModelo rol)
+        public ActionResult Create(RolModelo rol, IFormFile imagen)
         {
-            if (ModelState.IsValid)
+            if (imagen != null)
             {
-                Contexto.Roles.Add(rol);
-                Contexto.SaveChanges();
+                using (var memoryStream = new MemoryStream())
+                {
+                    imagen.CopyTo(memoryStream);
+                    rol.Imagen = memoryStream.ToArray();
+                }
+            }
+
+            Contexto.Roles.Add(rol);
+            Contexto.Database.EnsureCreated();
+            Contexto.SaveChanges();
+
+            try
+            {
                 return RedirectToAction(nameof(Index));
             }
-            return View(rol);
+            catch
+            {
+                return View(rol);
+            }
         }
 
         // GET: RolController/Edit/5

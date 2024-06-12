@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ProyectoTFG_League.Models;
 
 namespace ProyectoTFG_League.Controllers
@@ -16,7 +17,8 @@ namespace ProyectoTFG_League.Controllers
         // GET: ObjetoController
         public ActionResult Index()
         {
-            return View();
+            var objetos = Contexto.Objetos.ToList();
+            return View(objetos);
         }
 
         // GET: ObjetoController/Details/5
@@ -28,6 +30,16 @@ namespace ProyectoTFG_League.Controllers
         // GET: ObjetoController/Create
         public ActionResult Create()
         {
+            ViewBag.Tipos = new SelectList(new[]
+            {
+                "Iniciales", "Consumibles", "Wards", "Distribuidos", "Botas", "Basicos", "Epicos", "Legendarios", "Exclusivos"
+            });
+
+            ViewBag.Modos = new SelectList(new[]
+            {
+                "Clasico 5vs5", "ARAM"
+            });
+
             return View();
         }
 

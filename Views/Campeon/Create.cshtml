@@ -1,0 +1,97 @@
+﻿@model ProyectoTFG_League.Models.CampeonModelo
+
+@{
+    ViewData["Title"] = "Añadir Campeón";
+}
+
+<h1 class="text-center">Añadir Campeón</h1>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data" class="form-horizontal">
+    <div class="form-group">
+        <label asp-for="Nombre" class="control-label col-md-2">Nombre</label>
+        <div class="col-md-2">
+            <input asp-for="Nombre" class="form-control" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="NombreRol.ID" class="control-label col-md-2">Rol</label>
+        <div class="col-md-2">
+            <select asp-for="NombreRol.ID" class="form-control" asp-items="ViewBag.Roles"></select>
+            <span asp-validation-for="NombreRol.ID" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="Posicion" class="control-label col-md-2">Posición</label>
+        <div class="col-md-3">
+            <input asp-for="Posicion" class="form-control" />
+            <span asp-validation-for="Posicion" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="Recurso" class="control-label col-md-2">Recurso</label>
+        <div class="col-md-2">
+            <input asp-for="Recurso" class="form-control" />
+            <span asp-validation-for="Recurso" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="Gama" class="control-label col-md-2">Gama</label>
+        <div class="col-md-5">
+            <input asp-for="Gama" class="form-control" />
+            <span asp-validation-for="Gama" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="Fecha" class="control-label col-md-2">Fecha</label>
+        <div class="col-md-2">
+            <input asp-for="Fecha" class="form-control" />
+            <span asp-validation-for="Fecha" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="CosteRP" class="control-label col-md-2">Coste RP</label>
+        <div class="col-md-2">
+            <input asp-for="CosteRP" class="form-control" />
+            <span asp-validation-for="CosteRP" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="CosteAzul" class="control-label col-md-2">Coste Azul</label>
+        <div class="col-md-2">
+            <input asp-for="CosteAzul" class="form-control" />
+            <span asp-validation-for="CosteAzul" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="Imagen" class="control-label col-md-2">Imagen</label>
+        <div class="col-md-5">
+            <input type="file" asp-for="Imagen" class="form-control" />
+            <span asp-validation-for="Imagen" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Crear" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+<br />
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

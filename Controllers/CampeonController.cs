@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using ProyectoTFG_League.Models;
 
 namespace ProyectoTFG_League.Controllers
@@ -16,8 +18,10 @@ namespace ProyectoTFG_League.Controllers
         // GET: CampeonController
         public ActionResult Index()
         {
-            return View();
+            var campeones = Contexto.Campeones.Include(c => c.NombreRol).ToList();
+            return View(campeones);
         }
+
 
         // GET: CampeonController/Details/5
         public ActionResult Details(int id)
@@ -28,6 +32,7 @@ namespace ProyectoTFG_League.Controllers
         // GET: CampeonController/Create
         public ActionResult Create()
         {
+            ViewBag.Roles = new SelectList(Contexto.Roles, "ID", "Nombre");
             return View();
         }
 
@@ -45,17 +50,20 @@ namespace ProyectoTFG_League.Controllers
                 }
             }
 
+            campeon.NombreRol = Contexto.Roles.Find(campeon.NombreRol.ID);
+
             Contexto.Campeones.Add(campeon);
             Contexto.Database.EnsureCreated();
             Contexto.SaveChanges();
 
             try
             {
-                return RedirectToAction(nameof(Create));
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View("Create");
+                ViewBag.Roles = new SelectList(Contexto.Roles, "ID", "Nombre");
+                return View(campeon);
             }
         }
 

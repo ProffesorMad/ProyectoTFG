@@ -5,8 +5,8 @@
 }
 
 <h1 class="text-center">Añadir Rol</h1>
-<br />
-<form asp-action="Create" method="post" class="form-horizontal">
+
+<form asp-action="Create" method="post" enctype="multipart/form-data" class="form-horizontal">
     <div class="form-group">
         <label asp-for="Nombre" class="control-label col-md-2">Nombre</label>
         <div class="col-md-2">
@@ -18,8 +18,16 @@
     <div class="form-group">
         <label asp-for="DescripcionR" class="control-label col-md-2">Descripción</label>
         <div class="col-md-5">
-            <textarea asp-for="DescripcionR" class="form-control"></textarea>
+            <input asp-for="DescripcionR" class="form-control" />
             <span asp-validation-for="DescripcionR" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="Imagen" class="control-label col-md-2">Imagen</label>
+        <div class="col-md-5">
+            <input type="file" asp-for="Imagen" class="form-control" />
+            <span asp-validation-for="Imagen" class="text-danger"></span>
         </div>
     </div>
     <br />
@@ -28,13 +36,14 @@
             <input type="submit" value="Crear" class="btn btn-primary" />
         </div>
     </div>
-    <br />
 </form>
-
+<br />
 <div>
-    <a asp-action="Index" class="btn btn-secondary">Volver al Index</a>
+    <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

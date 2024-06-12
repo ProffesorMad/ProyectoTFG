@@ -1,0 +1,72 @@
+﻿@model ProyectoTFG_League.Models.ObjetoModelo
+
+@{
+    ViewData["Title"] = "Añadir Objeto";
+}
+
+<h1 class="text-center">Añadir Objeto</h1>
+
+
+<form asp-action="Create" method="post" enctype="multipart/form-data" class="form-horizontal">
+    <div class="form-group">
+        <label asp-for="Nombre" class="control-label col-md-2">Nombre</label>
+        <div class="col-md-5">
+            <input asp-for="Nombre" class="form-control" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="Tipo" class="control-label col-md-2">Tipo</label>
+        <div class="col-md-2">
+            <select asp-for="Tipo" class="form-control" asp-items="ViewBag.Tipos"></select>
+            <span asp-validation-for="Tipo" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="Modo" class="control-label col-md-2">Modo</label>
+        <div class="col-md-2">
+            <select asp-for="Modo" class="form-control" asp-items="ViewBag.Modos"></select>
+            <span asp-validation-for="Modo" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="Coste" class="control-label col-md-2">Coste</label>
+        <div class="col-md-2">
+            <input asp-for="Coste" class="form-control" />
+            <span asp-validation-for="Coste" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="Estadisticas" class="control-label col-md-2">Estadísticas</label>
+        <div class="col-md-5">
+            <textarea asp-for="Estadisticas" class="form-control"></textarea>
+            <span asp-validation-for="Estadisticas" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="Imagen" class="control-label col-md-2">Imagen</label>
+        <div class="col-md-5">
+            <input type="file" asp-for="Imagen" class="form-control" />
+            <span asp-validation-for="Imagen" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Crear" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+<br />
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

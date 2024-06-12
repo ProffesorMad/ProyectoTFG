@@ -1,0 +1,68 @@
+﻿ @model IEnumerable<ProyectoTFG_League.Models.ObjetoModelo>
+
+@{
+    ViewData["Title"] = "Lista de Objetos";
+}
+
+<h1 class="text-center">Lista de Objetos</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-center">
+                Imagen
+            </th>
+            <th class="text-center">
+                Nombre
+            </th>
+            <th class="text-center">
+                Tipo
+            </th>
+            <th class="text-center">
+                Modo de Juego 
+            </th>
+            <th class="text-center">
+                Coste
+            </th>
+            <th class="text-center">
+                Estadisticas
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+ @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-center">
+                    @if (item.Imagen != null)
+                    {
+                        <img src="data:image;base64,@Convert.ToBase64String(item.Imagen)" alt="Imagen" width="75" height="75"/>
+                    }
+                </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+                <td class="text-center">
+                @Html.DisplayFor(modelItem => item.Tipo)
+            </td>
+                <td class="text-center">
+                @Html.DisplayFor(modelItem => item.Modo)
+            </td>
+                <td class="text-center">
+                @Html.DisplayFor(modelItem => item.Coste)
+            </td>
+                <td class="text-center">
+                @Html.DisplayFor(modelItem => item.Estadisticas)
+            </td>
+            <td class="text-center">
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
