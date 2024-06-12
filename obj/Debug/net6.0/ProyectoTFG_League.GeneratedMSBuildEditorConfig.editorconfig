@@ -16,10 +16,6 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\pablg\Desktop\ProyectoTFG_League
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/pablg/Desktop/ProyectoTFG_League/Views/Aspecto/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNwZWN0b1xDcmVhdGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/pablg/Desktop/ProyectoTFG_League/Views/Campeon/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FtcGVvblxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
