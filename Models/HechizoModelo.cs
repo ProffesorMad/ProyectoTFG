@@ -6,6 +6,7 @@
         public string Nombre { get; set; }
         public string DescripcionH { get; set; }
         public int Enfriamiento { get; set; }
+        public string ModoH { get; set; }
         public byte[] Imagen { get; set; }
     }
 }

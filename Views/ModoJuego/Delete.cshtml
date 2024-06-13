@@ -1,0 +1,26 @@
+﻿@model ProyectoTFG_League.Models.ModoJuegoModelo
+
+@{
+    ViewData["Title"] = "Eliminar Modo de Juego";
+}
+
+<h1 class="text-center">¿Está seguro que desea eliminar este Modo de Juego?</h1>
+<br />
+<div>
+    <h4>Modo de Juego</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Nombre
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

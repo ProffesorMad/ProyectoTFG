@@ -1,0 +1,48 @@
+﻿@model ProyectoTFG_League.Models.RolModelo
+
+@{
+    ViewData["Title"] = "Editar Rol";
+}
+
+<h1 class="text-center">Editar Rol</h1>
+<br />
+<form asp-action="Edit" method="post" enctype="multipart/form-data" class="form-horizontal">
+    <input type="hidden" asp-for="ID" />
+    <div class="form-group">
+        <label asp-for="Nombre" class="control-label col-md-2">Nombre</label>
+        <div class="col-md-5">
+            <input asp-for="Nombre" class="form-control" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="DescripcionR" class="control-label col-md-2">Descripción</label>
+        <div class="col-md-5">
+            <textarea asp-for="DescripcionR" class="form-control"></textarea>
+            <span asp-validation-for="DescripcionR" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+         <label for="imagen" class="control-label">Imagen</label>
+         <input type="file" name="imagen" class="form-control" />
+         <span asp-validation-for="Imagen" class="text-danger"></span>
+    </div>
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Guardar" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+<br />
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

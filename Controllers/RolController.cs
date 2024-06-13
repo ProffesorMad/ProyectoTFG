@@ -63,43 +63,80 @@ namespace ProyectoTFG_League.Controllers
         // GET: RolController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var rol = Contexto.Roles.Find(id);
+            if (rol == null)
+            {
+                return NotFound();
+            }
+            return View(rol);
         }
 
         // POST: RolController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, RolModelo rol, IFormFile imagen)
         {
+            if (id != rol.ID)
+            {
+                return BadRequest();
+            }
+
+            var existingRol = Contexto.Roles.Find(id);
+            if (existingRol == null)
+            {
+                return NotFound();
+            }
+
+            if (imagen != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    imagen.CopyTo(memoryStream);
+                    existingRol.Imagen = memoryStream.ToArray();
+                }
+            }
+
+            existingRol.Nombre = rol.Nombre;
+            existingRol.DescripcionR = rol.DescripcionR;
+
+            Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<RolModelo> entityEntry = Contexto.Roles.Update(existingRol);
+            Contexto.SaveChanges();
+
             try
             {
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(existingRol);
             }
         }
 
         // GET: RolController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var rol = Contexto.Roles.Find(id);
+            if (rol == null)
+            {
+                return NotFound();
+            }
+            return View(rol);
         }
 
         // POST: RolController/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
+            var rol = Contexto.Roles.Find(id);
+            if (rol == null)
             {
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-            catch
-            {
-                return View();
-            }
+
+            Contexto.Roles.Remove(rol);
+            Contexto.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

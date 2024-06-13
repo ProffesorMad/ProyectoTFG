@@ -29,14 +29,11 @@
 
 <h1 class="text-center">Lista de Objetos</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table table-striped">
     <thead>
         <tr>
             <th class="text-center">
-                Imagen
+                
             </th>
             <th class="text-center">
                 Nombre
@@ -82,10 +79,14 @@
                 @Html.DisplayFor(modelItem => item.Estadisticas)
             </td>
             <td class="text-center">
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-sm">Editar</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-sm">Eliminar</a>
             </td>
         </tr>
 }
     </tbody>
+
 </table>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Añadir Nuevo Objeto</a>
+</p>

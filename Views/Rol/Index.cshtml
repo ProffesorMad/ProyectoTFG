@@ -50,7 +50,12 @@
                 </td>
                 <td class="text-center-cell">@rol.Nombre</td>
                 <td class="text-center">@rol.DescripcionR</td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@rol.ID" class="btn btn-primary btn-sm">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@rol.ID" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
             </tr>
+
         }
     </tbody>
 </table>

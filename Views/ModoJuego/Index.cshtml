@@ -46,7 +46,8 @@
             <td class="text-center">@Html.DisplayFor(modelItem => item.Tipo)</td>
             <td class="text-center">@Html.DisplayFor(modelItem => item.DescripcionM)</td>
             <td class="text-center">
-                <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-sm">Eliminar</a>
+               <a asp-controller="ModoJuego" asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning">Editar</a>
+               <a asp-controller="ModoJuego" asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>
 }

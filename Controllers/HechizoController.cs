@@ -102,7 +102,7 @@ namespace ProyectoTFG_League.Controllers
             existingHechizo.Nombre = hechizo.Nombre;
             existingHechizo.DescripcionH = hechizo.DescripcionH;
             existingHechizo.Enfriamiento = hechizo.Enfriamiento;
-
+            existingHechizo.ModoH = hechizo.ModoH;
             Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<HechizoModelo> entityEntry = Contexto.Hechizos.Update(existingHechizo);
             Contexto.SaveChanges();
 

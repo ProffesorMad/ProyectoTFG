@@ -15,6 +15,12 @@ namespace ProyectoTFG_League.Models
         public DbSet<HechizoModelo> Hechizos { get; set; }
         public DbSet<ModoJuegoModelo> ModosJuegos { get; set; }
         public DbSet<ObjetoModelo> Objetos { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ObjetoModelo>()
+                .Ignore(o => o.Modo)
+                .Property(o => o.ModoString);
+        }
         public DbSet<RolModelo> Roles { get; set; }
 
 

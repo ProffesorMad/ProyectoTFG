@@ -51,43 +51,60 @@ namespace ProyectoTFG_League.Controllers
         // GET: ModoJuegoController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var modoJuego = Contexto.ModosJuegos.Find(id);
+            if (modoJuego == null)
+            {
+                return NotFound();
+            }
+            ViewBag.Tipos = new List<string> { "Especial", "Permanente" };
+            return View(modoJuego);
         }
 
         // POST: ModoJuegoController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, ModoJuegoModelo modoJuego)
         {
-            try
+            if (id != modoJuego.ID)
             {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                Contexto.ModosJuegos.Update(modoJuego);
+                Contexto.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            ViewBag.Tipos = new List<string> { "Especial", "Permanente" };
+            return View(modoJuego);
         }
 
         // GET: ModoJuegoController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var modoJuego = Contexto.ModosJuegos.Find(id);
+            if (modoJuego == null)
+            {
+                return NotFound();
+            }
+            return View(modoJuego);
         }
 
         // POST: ModoJuegoController/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
+            var modoJuego = Contexto.ModosJuegos.Find(id);
+            if (modoJuego == null)
             {
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-            catch
-            {
-                return View();
-            }
+
+            Contexto.ModosJuegos.Remove(modoJuego);
+            Contexto.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
