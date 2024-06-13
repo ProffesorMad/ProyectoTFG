@@ -10,7 +10,7 @@
         public string Estadisticas { get; set; }
         public byte[] Imagen { get; set; }
 
-        public string Modos
+        public string ModoString
         {
             get => string.Join(",", Modo);
             set => Modo = value.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();

@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Aspecto\" />
     <Folder Include="Views\Habilidad\" />
   </ItemGroup>
 
