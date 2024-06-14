@@ -17,7 +17,7 @@
             <br />
             <div class="form-group">
                 <label asp-for="PrecioRP" class="control-label">Precio RP</label>
-                <input asp-for="PrecioRP" class="form-control" />
+                <select asp-for="PrecioRP" class="form-control" asp-items="ViewBag.Precios"></select>
                 <span asp-validation-for="PrecioRP" class="text-danger"></span>
             </div>
             <br />

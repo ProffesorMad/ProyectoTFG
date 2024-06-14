@@ -24,6 +24,7 @@ namespace ProyectoTFG_League.Controllers
             return View(aspectos);
         }
 
+
         // GET: AspectoController/Details/5
         public ActionResult Details(int id)
         {
@@ -35,10 +36,70 @@ namespace ProyectoTFG_League.Controllers
             return View(aspecto);
         }
 
+        // GET: AspectoController/Busqueda
+        public ActionResult Busqueda(string nombreAspecto, int? campeon, int? precio)
+        {
+            var campeones = Contexto.Campeones.Select(c => new SelectListItem
+            {
+                Value = c.ID.ToString(),
+                Text = c.Nombre
+            }).ToList();
+
+            campeones.Insert(0, new SelectListItem { Value = "0", Text = "Todos" });
+
+            ViewBag.Campeones = campeones;
+
+            var precios = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "0", Text = "Cualquier Precio" },
+                new SelectListItem { Value = "750", Text = "750 RP" },
+                new SelectListItem { Value = "975", Text = "975 RP" },
+                new SelectListItem { Value = "1350", Text = "1350 RP" },
+                new SelectListItem { Value = "1820", Text = "1820 RP" },
+                new SelectListItem { Value = "3250", Text = "3250 RP" }
+            };
+
+            ViewBag.Precios = precios;
+
+            var aspectosQuery = Contexto.Aspectos.Include(a => a.CampeonNombre).AsQueryable();
+
+            
+            if (!string.IsNullOrEmpty(nombreAspecto))
+            {
+                aspectosQuery = aspectosQuery.Where(a => a.Nombre.Contains(nombreAspecto));
+            }
+
+            if (campeon.HasValue && campeon.Value != 0) 
+            {
+                aspectosQuery = aspectosQuery.Where(a => a.CampeonNombre.ID == campeon.Value);
+            }
+
+            if (precio.HasValue && precio.Value != 0)
+            {
+                aspectosQuery = aspectosQuery.Where(a => a.PrecioRP == precio.Value);
+            }
+
+            var aspectos = aspectosQuery.ToList();
+
+            ViewBag.NombreAspecto = nombreAspecto;
+            ViewBag.CampeonSeleccionado = campeon;
+            ViewBag.PrecioSeleccionado = precio;
+
+            return View(aspectos);
+        }
+
         // GET: AspectoController/Create
         public ActionResult Create()
         {
             ViewBag.Campeones = new SelectList(Contexto.Campeones, "ID", "Nombre");
+            ViewBag.Precios = new List<SelectListItem>
+                {
+                    new SelectListItem { Value = "750", Text = "750" },
+                    new SelectListItem { Value = "975", Text = "975" },
+                    new SelectListItem { Value = "1350", Text = "1.350" },
+                    new SelectListItem { Value = "1820", Text = "1.820" },
+                    new SelectListItem { Value = "3250", Text = "3.250" }
+                };
             return View();
         }
 
@@ -82,6 +143,14 @@ namespace ProyectoTFG_League.Controllers
                 return NotFound();
             }
             ViewBag.Campeones = new SelectList(Contexto.Campeones, "ID", "Nombre");
+            ViewBag.Precios = new List<SelectListItem>
+                {
+                    new SelectListItem { Value = "750", Text = "750" },
+                    new SelectListItem { Value = "975", Text = "975" },
+                    new SelectListItem { Value = "1350", Text = "1.350" },
+                    new SelectListItem { Value = "1820", Text = "1.820" },
+                    new SelectListItem { Value = "3250", Text = "3.250" }
+                };
             return View(aspecto);
         }
 
@@ -120,7 +189,7 @@ namespace ProyectoTFG_League.Controllers
 
             try
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));  
             }
             catch
             {
