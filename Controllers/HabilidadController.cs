@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using ProyectoTFG_League.Models;
 
 namespace ProyectoTFG_League.Controllers
@@ -16,7 +18,8 @@ namespace ProyectoTFG_League.Controllers
         // GET: HabilidadController
         public ActionResult Index()
         {
-            return View();
+            var habilidades = Contexto.Habilidades.Include(h => h.CampeonNombre).ToList();
+            return View(habilidades);
         }
 
         // GET: HabilidadController/Details/5
@@ -28,63 +31,125 @@ namespace ProyectoTFG_League.Controllers
         // GET: HabilidadController/Create
         public ActionResult Create()
         {
+            ViewBag.Campeones = new SelectList(Contexto.Campeones, "ID", "Nombre");
+            ViewBag.Tipos = new List<SelectListItem>
+                {
+                    new SelectListItem { Value = "Pasiva", Text = "Pasiva" },
+                    new SelectListItem { Value = "Q", Text = "Q" },
+                    new SelectListItem { Value = "W", Text = "W" },
+                    new SelectListItem { Value = "E", Text = "E" },
+                    new SelectListItem { Value = "R", Text = "R" }
+                };
             return View();
         }
 
         // POST: HabilidadController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(HabilidadModelo habilidad)
         {
+            habilidad.CampeonNombre = Contexto.Campeones.Find(habilidad.CampeonNombre.ID);
+            Contexto.Habilidades.Add(habilidad);
+            Contexto.SaveChanges();
+
             try
             {
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                ViewBag.Campeones = new SelectList(Contexto.Campeones, "ID", "Nombre");
+                return View(habilidad);
             }
         }
 
         // GET: HabilidadController/Edit/5
         public ActionResult Edit(int id)
         {
+            var habilidad = Contexto.Habilidades.Include(h => h.CampeonNombre).FirstOrDefault(h => h.ID == id);
+            if (habilidad == null)
+            {
+                return NotFound();
+            }
+            ViewBag.Campeones = new SelectList(Contexto.Campeones, "ID", "Nombre");
+            ViewBag.Tipos = new List<SelectListItem>
+                {
+                    new SelectListItem { Value = "Pasiva", Text = "Pasiva" },
+                    new SelectListItem { Value = "Q", Text = "Q" },
+                    new SelectListItem { Value = "W", Text = "W" },
+                    new SelectListItem { Value = "E", Text = "E" },
+                    new SelectListItem { Value = "R", Text = "R" }
+                };
             return View();
         }
 
         // POST: HabilidadController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, HabilidadModelo habilidad)
         {
+            if (id != habilidad.ID)
+            {
+                return BadRequest();
+            }
+
+            var existingHabilidad = Contexto.Habilidades.Include(h => h.CampeonNombre).FirstOrDefault(h => h.ID == id);
+            if (existingHabilidad == null)
+            {
+                return NotFound();
+            }
+
+            existingHabilidad.Tipo = habilidad.Tipo;
+            existingHabilidad.Nombre = habilidad.Nombre;
+            existingHabilidad.DescripicionH = habilidad.DescripicionH;
+            existingHabilidad.CampeonNombre = Contexto.Campeones.Find(habilidad.CampeonNombre.ID);
+
+            Contexto.Habilidades.Update(existingHabilidad);
+            Contexto.SaveChanges();
+
             try
             {
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                ViewBag.Campeones = new SelectList(Contexto.Campeones, "ID", "Nombre");
+                return View(existingHabilidad);
             }
         }
 
         // GET: HabilidadController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var habilidad = Contexto.Habilidades.Include(h => h.CampeonNombre).FirstOrDefault(h => h.ID == id);
+            if (habilidad == null)
+            {
+                return NotFound();
+            }
+            return View(habilidad);
         }
 
         // POST: HabilidadController/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult DeleteConfirmed(int id)
         {
+            var habilidad = Contexto.Habilidades.Find(id);
+            if (habilidad == null)
+            {
+                return NotFound();
+            }
+
+            Contexto.Habilidades.Remove(habilidad);
+            Contexto.SaveChanges();
+
             try
             {
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(habilidad);
             }
         }
     }

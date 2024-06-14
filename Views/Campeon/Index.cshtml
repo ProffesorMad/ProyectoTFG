@@ -1,76 +1,75 @@
-﻿@model IEnumerable<ProyectoTFG_League.Models.CampeonModelo>
+﻿@model IEnumerable<ProyectoTFG_League.Models.HabilidadModelo>
 
 @{
-    ViewData["Title"] = "Lista de Campeones";
+    ViewData["Title"] = "Habilidades";
 }
 
 <style>
     .text-center {
         text-align: center;
     }
+
     .font-weight-bold {
         font-weight: bold;
     }
-    .img-thumbnail {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
+
     .table {
         margin-top: 20px;
     }
-    .table th, .table td {
-        vertical-align: middle;
-    }
+
+        .table th, .table td {
+            vertical-align: middle;
+        }
+
     .btn-sm {
         margin: 2px;
     }
 </style>
 
-<h1 class="text-center">Lista de Campeones</h1>
-
-<table class="table table-striped table-bordered text-center">
+<h1>Lista de Habilidades</h1>
+<br />
+<table class="table">
     <thead>
         <tr>
-            <th class="text-center"></th>
-            <th class="text-center">Nombre</th>
-            <th class="text-center">Rol</th>
-            <th class="text-center">Posición</th>
-            <th class="text-center">Recurso</th>
-            <th class="text-center">Gama</th>
-            <th class="text-center">Fecha</th>
-            <th class="text-center">Coste RP</th>
-            <th class="text-center">Coste Azul</th>
-            
+            <th class="text-center">
+                Campeón
+            </th>
+            <th class="text-center">
+                Tipo+
+            </th>
+            <th class="text-center">
+                Nombre
+            </th>
+            <th class="text-center">
+                Descripción
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var campeon in Model)
+        @foreach (var item in Model)
         {
-            <tr>
-                <td class="text-center-cell">
-                    @if (campeon.Imagen != null && campeon.Imagen.Length > 0)
-                    {
-                        <img src="data:image;base64,@Convert.ToBase64String(campeon.Imagen)" alt="Imagen de @campeon.Nombre" class="img-thumbnail" width="75" height="75" />
-                    }
+            <tr><td class="text-center">
+                    @Html.DisplayFor(modelItem => item.CampeonNombre.Nombre)
                 </td>
-                <td>@campeon.Nombre</td>
-                <td>@campeon.NombreRol.Nombre</td>
-                <td>@campeon.Posicion</td>
-                <td>@campeon.Recurso</td>
-                <td>@campeon.Gama</td>
-                <td>@campeon.Fecha</td>
-                <td>@campeon.CosteRP</td>
-                <td>@campeon.CosteAzul</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@campeon.ID" class="btn btn-warning">Editar</a>
-                    <a asp-action="Delete" asp-route-id="@campeon.ID" class="btn btn-danger">Eliminar</a>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.Tipo)
+                </td>
+                <td class="text-center font-weight-bold">
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.DescripicionH)
+                </td>
+                <td class="text-center">
+                    <a asp-controller="Habilidad" asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning btn-sm">Editar</a>
+                    <a asp-controller="Habilidad" asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-sm">Eliminar</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
-<div>
-    <a asp-action="Create" class="btn btn-primary">Añadir Nuevo Campeón</a>
-</div>
+<br />
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Nueva Habilidad</a>
+</p>

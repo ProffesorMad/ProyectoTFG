@@ -1,0 +1,61 @@
+﻿@model IEnumerable<ProyectoTFG_League.Models.HabilidadModelo>
+
+@{
+    ViewData["Title"] = "Habilidades";
+}
+
+<style>
+    .text-center {
+        text-align: center;
+    }
+    .font-weight-bold {
+        font-weight: bold;
+    }
+    .img-thumbnail {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .table {
+        margin-top: 20px;
+    }
+    .table th, .table td {
+        vertical-align: middle;
+    }
+    .btn-sm {
+        margin: 2px;
+    }
+</style>
+
+<h1>Lista de Habilidades</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th class="text-center">Campeón</th>
+            <th class="text-center">Tipo</th>
+            <th class="text-center">Nombre</th>
+            <th class="text-center">Descripción</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-center">@item.CampeonNombre?.Nombre</td>
+                <td class="text-center">@item.Tipo</td>
+                <td class="text-center font-weight-bold">@item.Nombre</td>
+                <td class="text-center">@item.DescripicionH</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Nueva Habilidad</a>
+</p>
