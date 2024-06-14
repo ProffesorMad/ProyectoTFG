@@ -1,0 +1,58 @@
+﻿@model ProyectoTFG_League.Models.AspectoModelo
+
+@{
+    ViewData["Title"] = "Añadir Aspecto";
+}
+
+<h1>Añadir Aspecto</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="PrecioRP" class="control-label">Precio RP</label>
+                <input asp-for="PrecioRP" class="form-control" />
+                <span asp-validation-for="PrecioRP" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Fecha" class="control-label">Año Salida</label>
+                <input asp-for="Fecha" class="form-control" />
+                <span asp-validation-for="Fecha" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="CampeonNombre.ID" class="control-label">Campeón</label>
+                <select asp-for="CampeonNombre.ID" class="form-control" asp-items="ViewBag.Campeones"></select>
+                <span asp-validation-for="CampeonNombre.ID" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label for="imagen" class="control-label">Imagen</label>
+                <input type="file" name="imagen" class="form-control" />
+                <span asp-validation-for="Imagen" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Crear" class="btn btn-primary" />
+            </div>
+            <br />
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Volver a la Lista</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

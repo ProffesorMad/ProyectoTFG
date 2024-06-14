@@ -19,7 +19,7 @@ namespace ProyectoTFG_League.Models
         {
             modelBuilder.Entity<ObjetoModelo>()
                 .Ignore(o => o.Modo)
-                .Property(o => o.ModoString);
+                .Property(o => o.Modos);
         }
         public DbSet<RolModelo> Roles { get; set; }
 

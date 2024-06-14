@@ -1,0 +1,65 @@
+﻿@model IEnumerable<ProyectoTFG_League.Models.AspectoModelo>
+
+@{
+    ViewData["Title"] = "Aspectos";
+}
+<style>
+    .text-center {
+        text-align: center;
+    }
+    .font-weight-bold {
+        font-weight: bold;
+    }
+    .img-thumbnail {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .table {
+        margin-top: 20px;
+    }
+    .table th, .table td {
+        vertical-align: middle;
+    }
+    .btn-sm {
+        margin: 2px;
+    }
+</style>
+
+<h2>Aspectos</h2>
+
+<table class="table table-striped table-bordered text-center">
+    <thead>
+        <tr>
+            <th> </th>
+            <th class="text-center">Nombre</th>
+            <th class="text-center">Precio RP</th>
+            <th class="text-center">Fecha</th>
+            <th class="text-center">Campeón</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var aspecto in Model)
+        {
+            <tr>
+                <td>
+                    @if (aspecto.Imagen != null && aspecto.Imagen.Length > 0)
+                    {
+                        var base64 = Convert.ToBase64String(aspecto.Imagen);
+                        <img src="data:image;base64,@base64" alt="Imagen del aspecto" class="img-thumbnail" width="75" height="75" />
+                    }
+                </td>
+                <td class="text-center font-weight-bold">@aspecto.Nombre</td>
+                <td class="text-center">@aspecto.PrecioRP</td>
+                <td class="text-center" d>@aspecto.Fecha</td>
+                <td class="text-center">@aspecto.CampeonNombre?.Nombre</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@aspecto.ID" class="btn btn-primary">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@aspecto.ID" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-primary">Crear Nuevo Aspecto</a>

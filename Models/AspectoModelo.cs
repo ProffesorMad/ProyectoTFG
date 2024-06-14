@@ -7,7 +7,7 @@
         public int PrecioRP { get; set; }
         public string Fecha { get; set; }
         public byte[] Imagen { get; set; }
-        public CampeonModelo CampeonID { get; set; }
+        public CampeonModelo CampeonNombre { get; set; }
 
     }
 }

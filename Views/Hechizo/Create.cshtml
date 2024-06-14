@@ -4,52 +4,58 @@
     ViewData["Title"] = "Añadir Hechizo";
 }
 
-<h1>Añadir Hechizo</h1>
+<h1 class="text-center">Añadir Hechizo</h1>
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
-            <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <label class="control-label">Descripcion</label>
-                <label asp-for="DescripcionH" class="control-label"></label>
-                <input asp-for="DescripcionH" class="form-control" />
-                <span asp-validation-for="DescripcionH" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="Enfriamiento" class="control-label"></label>
-                <input asp-for="Enfriamiento" class="form-control" />
-                <span asp-validation-for="Enfriamiento" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <label class="control-label">Modo de Juego</label>
-                <input asp-for="ModoH" class="form-control" />
-                <span asp-validation-for="ModoH" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <label for="imagen" class="control-label">Imagen</label>
-                <input type="file" name="imagen" class="form-control" />
-                <span asp-validation-for="Imagen" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-            <br />
-        </form>
+<form asp-action="Create" method="post" enctype="multipart/form-data" class="form-horizontal">
+    <div class="form-group">
+        <label asp-for="Nombre" class="control-label col-md-2">Nombre</label>
+        <div class="col-md-5">
+            <input asp-for="Nombre" class="form-control" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
     </div>
-</div>
-
+    <br />
+    <div class="form-group">
+        <label asp-for="DescripcionH" class="control-label col-md-2">Descripción</label>
+        <div class="col-md-5">
+            <input asp-for="DescripcionH" class="form-control" />
+            <span asp-validation-for="DescripcionH" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="Enfriamiento" class="control-label col-md-2">Enfriamiento</label>
+        <div class="col-md-5">
+            <input asp-for="Enfriamiento" class="form-control" />
+            <span asp-validation-for="Enfriamiento" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label asp-for="ModoH" class="control-label col-md-2">Modo de Juego</label>
+        <div class="col-md-5">
+            <input asp-for="ModoH" class="form-control" />
+            <span asp-validation-for="ModoH" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="imagen" class="control-label col-md-2">Imagen</label>
+        <div class="col-md-5">
+            <input type="file" name="imagen" class="form-control" />
+            <span asp-validation-for="Imagen" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Crear" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+<br />
 <div>
-    <a asp-action="Index">Volver a la Lista</a>
+    <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
 </div>
 
 @section Scripts {
