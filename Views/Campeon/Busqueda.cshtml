@@ -1,7 +1,11 @@
 ﻿@model IEnumerable<ProyectoTFG_League.Models.CampeonModelo>
+
 @{
-    ViewData["Title"] = "Lista de Campeones";
+    ViewData["Title"] = "Campeones";
+    var posicionSeleccionada = ViewBag.Posicion != null ? ViewBag.Posicion.ToString() : "";
+    var nombreCampeon = ViewBag.Nombre != null ? ViewBag.Nombre.ToString() : "";
 }
+
 <style>
     .text-center {
         text-align: center;
@@ -29,22 +33,43 @@
         margin: 2px;
     }
 </style>
+
 <h1 class="text-center">Lista de Campeones</h1>
-<br />
-<a asp-action="Busqueda" class="btn btn-primary">Aplicar Filtros</a>
+
+<form method="get" asp-action="Busqueda">
+    <div class="col-md-4 mb-3">
+        <label for="posicion">Posición</label>
+        <select class="form-control" id="posicion" name="posicion">
+            @foreach (var item in ViewBag.Posiciones)
+            {
+                <option value="@item.Value" selected="@((item.Value == ViewBag.Posicion) ? "selected" : null)">@item.Text</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-4 mb-3">
+        <label for="nombre">Nombre del Campeón</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" value="@nombreCampeon" placeholder="Nombre del Campeón">
+    </div>
+    <div class="form-row">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary button-spacing">Aplicar Filtros</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </div>
+</form>
 <br />
 <table class="table table-striped table-bordered text-center">
     <thead>
         <tr>
             <th class="text-center"></th>
             <th class="text-center">
-                <a href="@Url.Action("Index", new { sortOrder = ViewBag.NombreSortOrder, currentFilter = ViewBag.CurrentFilter })">
+                <a href="@Url.Action("Busqueda", new { sortOrder = ViewBag.SortOrder == "nombre_desc" ? "nombre_asc" : "nombre_desc", posicion = ViewBag.Posicion, nombre = ViewBag.Nombre })">
                     Nombre
-                    @if (ViewBag.NombreSortOrder == "nombre_desc")
+                    @if (ViewBag.SortOrder == "nombre_desc")
                     {
                         <span>&#9660;</span>
                     }
-                    else
+                    else if (ViewBag.SortOrder == "nombre_asc")
                     {
                         <span>&#9650;</span>
                     }
@@ -55,45 +80,45 @@
             <th class="text-center">Recurso</th>
             <th class="text-center">Gama</th>
             <th class="text-center">
-                <a href="@Url.Action("Index", new { sortOrder = ViewBag.FechaSortOrder, currentFilter = ViewBag.CurrentFilter })">
+                <a href="@Url.Action("Busqueda", new { sortOrder = ViewBag.SortOrder == "fecha_desc" ? "fecha_asc" : "fecha_desc", posicion = ViewBag.Posicion, nombre = ViewBag.Nombre })">
                     Fecha
-                    @if (ViewBag.FechaSortOrder == "fecha_desc")
+                    @if (ViewBag.SortOrder == "fecha_desc")
                     {
                         <span>&#9660;</span>
                     }
-                    else
+                    else if (ViewBag.SortOrder == "fecha_asc")
                     {
                         <span>&#9650;</span>
                     }
                 </a>
             </th>
             <th class="text-center">
-                <a href="@Url.Action("Index", new { sortOrder = ViewBag.CosteRPSortOrder, currentFilter = ViewBag.CurrentFilter })">
+                <a href="@Url.Action("Busqueda", new { sortOrder = ViewBag.SortOrder == "costeRP_desc" ? "costeRP_asc" : "costeRP_desc", posicion = ViewBag.Posicion, nombre = ViewBag.Nombre })">
                     Coste RP
-                    @if (ViewBag.CosteRPSortOrder == "costeRP_desc")
+                    @if (ViewBag.SortOrder == "costeRP_desc")
                     {
                         <span>&#9660;</span>
                     }
-                    else
+                    else if (ViewBag.SortOrder == "costeRP_asc")
                     {
                         <span>&#9650;</span>
                     }
                 </a>
             </th>
             <th class="text-center">
-                <a href="@Url.Action("Index", new { sortOrder = ViewBag.CosteAzulSortOrder, currentFilter = ViewBag.CurrentFilter })">
+                <a href="@Url.Action("Busqueda", new { sortOrder = ViewBag.SortOrder == "costeAzul_desc" ? "costeAzul_asc" : "costeAzul_desc", posicion = ViewBag.Posicion, nombre = ViewBag.Nombre })">
                     Coste Azul
-                    @if (ViewBag.CosteAzulSortOrder == "costeAzul_desc")
+                    @if (ViewBag.SortOrder == "costeAzul_desc")
                     {
                         <span>&#9660;</span>
                     }
-                    else
+                    else if (ViewBag.SortOrder == "costeAzul_asc")
                     {
                         <span>&#9650;</span>
                     }
                 </a>
             </th>
-
+            <th class="text-center">Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -103,10 +128,11 @@
                 <td class="text-center-cell">
                     @if (campeon.Imagen != null && campeon.Imagen.Length > 0)
                     {
-                        <img src="data:image;base64,@Convert.ToBase64String(campeon.Imagen)" alt="Imagen de @campeon.Nombre" class="img-thumbnail" width="75" height="75" />
+                        var base64 = Convert.ToBase64String(campeon.Imagen);
+                        <img src="data:image;base64,@base64" alt="Imagen del campeón" class="img-thumbnail" width="75" height="75" />
                     }
                 </td>
-                <td>@campeon.Nombre</td>
+                <td class="text-center font-weight-bold">@campeon.Nombre</td>
                 <td>@campeon.NombreRol.Nombre</td>
                 <td>@campeon.Posicion</td>
                 <td>@campeon.Recurso</td>
@@ -122,6 +148,4 @@
         }
     </tbody>
 </table>
-<div>
-    <a asp-action="Create" class="btn btn-primary">Añadir Nuevo Campeón</a>
-</div>
+

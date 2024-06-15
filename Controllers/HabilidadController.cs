@@ -25,7 +25,44 @@ namespace ProyectoTFG_League.Controllers
         // GET: HabilidadController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var habilidad = Contexto.Habilidades.Include(h => h.CampeonNombre).FirstOrDefault(h => h.ID == id);
+            if (habilidad == null)
+            {
+                return NotFound();
+            }
+            return View(habilidad);
+        }
+
+        // GET: HabilidadController/Busqueda
+        public ActionResult Busqueda(string tipo, string nombreHabilidad)
+        {
+            ViewBag.Tipos = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "Pasiva", Text = "Pasiva" },
+                new SelectListItem { Value = "Q", Text = "Q" },
+                new SelectListItem { Value = "W", Text = "W" },
+                new SelectListItem { Value = "E", Text = "E" },
+                new SelectListItem { Value = "R", Text = "R" }
+            };
+
+            var habilidadesQuery = Contexto.Habilidades.Include(h => h.CampeonNombre).AsQueryable();
+
+            if (!string.IsNullOrEmpty(tipo))
+            {
+                habilidadesQuery = habilidadesQuery.Where(h => h.Tipo == tipo);
+            }
+
+            if (!string.IsNullOrEmpty(nombreHabilidad))
+            {
+                habilidadesQuery = habilidadesQuery.Where(h => h.Nombre.Contains(nombreHabilidad));
+            }
+
+            var habilidades = habilidadesQuery.ToList();
+
+            ViewBag.TipoSeleccionado = tipo;
+            ViewBag.NombreHabilidad = nombreHabilidad;
+
+            return View(habilidades);
         }
 
         // GET: HabilidadController/Create
@@ -80,7 +117,7 @@ namespace ProyectoTFG_League.Controllers
                     new SelectListItem { Value = "E", Text = "E" },
                     new SelectListItem { Value = "R", Text = "R" }
                 };
-            return View();
+            return View(habilidad);
         }
 
         // POST: HabilidadController/Edit/5

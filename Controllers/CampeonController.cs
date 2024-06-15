@@ -16,9 +16,124 @@ namespace ProyectoTFG_League.Controllers
         }
 
         // GET: CampeonController
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter)
         {
-            var campeones = Contexto.Campeones.Include(c => c.NombreRol).ToList();
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NombreSortOrder = string.IsNullOrEmpty(sortOrder) ? "nombre_desc" : "";
+            ViewBag.FechaSortOrder = sortOrder == "fecha" ? "fecha_desc" : "fecha";
+            ViewBag.CosteRPSortOrder = sortOrder == "costeRP" ? "costeRP_desc" : "costeRP";
+            ViewBag.CosteAzulSortOrder = sortOrder == "costeAzul" ? "costeAzul_desc" : "costeAzul";
+
+            IQueryable<CampeonModelo> campeonesQuery = Contexto.Campeones.Include(c => c.NombreRol);
+
+            // Aplicar el filtro actual
+            if (!string.IsNullOrEmpty(currentFilter))
+            {
+                campeonesQuery = campeonesQuery.Where(c => c.Nombre.Contains(currentFilter));
+            }
+
+            // Aplicar la ordenación
+            switch (sortOrder)
+            {
+                case "nombre_desc":
+                    campeonesQuery = campeonesQuery.OrderByDescending(c => c.Nombre);
+                    break;
+                case "fecha":
+                    campeonesQuery = campeonesQuery.OrderBy(c => c.Fecha);
+                    break;
+                case "fecha_desc":
+                    campeonesQuery = campeonesQuery.OrderByDescending(c => c.Fecha);
+                    break;
+                case "costeRP":
+                    campeonesQuery = campeonesQuery.OrderBy(c => c.CosteRP);
+                    break;
+                case "costeRP_desc":
+                    campeonesQuery = campeonesQuery.OrderByDescending(c => c.CosteRP);
+                    break;
+                case "costeAzul":
+                    campeonesQuery = campeonesQuery.OrderBy(c => c.CosteAzul);
+                    break;
+                case "costeAzul_desc":
+                    campeonesQuery = campeonesQuery.OrderByDescending(c => c.CosteAzul);
+                    break;
+                default:
+                    campeonesQuery = campeonesQuery.OrderBy(c => c.Nombre);
+                    ViewBag.NombreSortOrder = "nombre_desc";
+                    break;
+            }
+
+            var campeones = campeonesQuery.ToList();
+            ViewBag.CurrentFilter = currentFilter;
+
+            return View(campeones);
+        }
+
+        // GET: CampeonController/Busqueda
+        public ActionResult Busqueda(string sortOrder, string posicion, string nombre)
+        {
+            var campeonesQuery = Contexto.Campeones.Include(c => c.NombreRol).AsQueryable();
+
+            if (!string.IsNullOrEmpty(posicion))
+            {
+                campeonesQuery = campeonesQuery.Where(c => c.Posicion.Contains(posicion));
+            }
+
+            if (!string.IsNullOrEmpty(nombre))
+            {
+                campeonesQuery = campeonesQuery.Where(c => c.Nombre.Contains(nombre));
+            }
+
+            // Configurar la lista de posiciones para el filtro
+            ViewBag.Posiciones = new List<SelectListItem>
+            {
+                new SelectListItem { Text = "Todas las posiciones", Value = "" },
+                new SelectListItem { Text = "Top", Value = "Top" },
+                new SelectListItem { Text = "Jungla", Value = "Jungla" },
+                new SelectListItem { Text = "Medio", Value = "Medio" },
+                new SelectListItem { Text = "ADC", Value = "ADC" },
+                new SelectListItem { Text = "Support", Value = "Support" }
+            };
+
+            // Aplicar la ordenación
+            switch (sortOrder)
+            {
+                case "nombre_desc":
+                    campeonesQuery = campeonesQuery.OrderByDescending(c => c.Nombre);
+                    break;
+                case "nombre_asc":
+                    campeonesQuery = campeonesQuery.OrderBy(c => c.Nombre);
+                    break;
+                case "fecha_desc":
+                    campeonesQuery = campeonesQuery.OrderByDescending(c => c.Fecha);
+                    break;
+                case "fecha_asc":
+                    campeonesQuery = campeonesQuery.OrderBy(c => c.Fecha);
+                    break;
+                case "costeRP_desc":
+                    campeonesQuery = campeonesQuery.OrderByDescending(c => c.CosteRP);
+                    break;
+                case "costeRP_asc":
+                    campeonesQuery = campeonesQuery.OrderBy(c => c.CosteRP);
+                    break;
+                case "costeAzul_desc":
+                    campeonesQuery = campeonesQuery.OrderByDescending(c => c.CosteAzul);
+                    break;
+                case "costeAzul_asc":
+                    campeonesQuery = campeonesQuery.OrderBy(c => c.CosteAzul);
+                    break;
+                default:
+                    campeonesQuery = campeonesQuery.OrderBy(c => c.Nombre); // Ordenación por defecto
+                    sortOrder = "nombre_desc"; // Establecer ordenación por nombre descendente por defecto
+                    break;
+            }
+
+            var campeones = campeonesQuery.ToList();
+
+            // Guardar los filtros aplicados en ViewBag para usarlos en la vista
+            ViewBag.Posicion = posicion;
+            ViewBag.Nombre = nombre;
+            ViewBag.SortOrder = sortOrder;
+
             return View(campeones);
         }
 
@@ -134,7 +249,7 @@ namespace ProyectoTFG_League.Controllers
         {
             var campeon = Contexto.Campeones.Include(c => c.NombreRol).FirstOrDefault(c => c.ID == id);
             if (campeon == null)
-            {
+            { 
                 return NotFound();
             }
             return View(campeon);

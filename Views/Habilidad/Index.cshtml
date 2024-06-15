@@ -28,8 +28,9 @@
 </style>
 
 <h1>Lista de Habilidades</h1>
-
-
+<br />
+<a asp-action="Busqueda" class="btn btn-primary">Aplicar Filtros</a>
+<br />
 <table class="table">
     <thead>
         <tr>
@@ -47,7 +48,7 @@
                 <td class="text-center">@item.Tipo</td>
                 <td class="text-center font-weight-bold">@item.Nombre</td>
                 <td class="text-center">@item.DescripicionH</td>
-                <td>
+                <td class="text-center">
                     <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning">Editar</a>
                     <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger">Eliminar</a>
                 </td>

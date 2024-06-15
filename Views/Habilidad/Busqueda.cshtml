@@ -1,0 +1,61 @@
+﻿@model IEnumerable<ProyectoTFG_League.Models.HabilidadModelo>
+
+@{
+    ViewData["Title"] = "Habilidades";
+    var tipoSeleccionado = ViewBag.TipoSeleccionado != null ? ViewBag.TipoSeleccionado.ToString() : "";
+    var nombreHabilidad = ViewBag.NombreHabilidad != null ? ViewBag.NombreHabilidad.ToString() : "";
+}
+
+<h1 class="text-center">Lista de Habilidades</h1>
+
+<form method="get" asp-action="Busqueda">
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="tipo">Tipo</label>
+            <select class="form-control" id="tipo" name="tipo">
+                <option value="">Todos</option>
+                @foreach (var item in ViewBag.Tipos)
+                {
+                    var isSelected = item.Value == tipoSeleccionado ? "selected" : "";
+                    @Html.Raw($"<option value='{item.Value}' {isSelected}>{item.Text}</option>")
+                }
+            </select>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="nombreHabilidad">Nombre de la Habilidad</label>
+            <input type="text" class="form-control" id="nombreHabilidad" name="nombreHabilidad" value="@nombreHabilidad" placeholder="Nombre de la Habilidad">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </div>
+</form>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Campeón</th>
+            <th>Tipo</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var habilidad in Model)
+        {
+            <tr>
+                <td class="text-center">@habilidad.CampeonNombre?.Nombre</td>
+                <td class="text-center">@habilidad.Tipo</td>
+                <td class="text-center font-weight-bold">@habilidad.Nombre</td>
+                <td class="text-center">@habilidad.DescripicionH</td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@habilidad.ID" class="btn btn-warning">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@habilidad.ID" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -11,7 +11,6 @@
         public string Fecha { get; set; }
         public int CosteRP { get; set; }
         public int CosteAzul { get; set; }
-
         public byte[] Imagen { get; set; }
     }
 }
