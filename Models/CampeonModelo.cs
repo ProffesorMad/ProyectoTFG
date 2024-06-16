@@ -12,5 +12,6 @@
         public int CosteRP { get; set; }
         public int CosteAzul { get; set; }
         public byte[] Imagen { get; set; }
+        public List<HabilidadModelo> Habilidades { get; set; }
     }
 }

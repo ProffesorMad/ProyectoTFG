@@ -1,0 +1,40 @@
+﻿@model ProyectoTFG_League.Models.CampeonModelo
+
+@{
+    ViewData["Title"] = "Detalles del Campeón";
+}
+
+<h1 class="text-center">@Model.Nombre</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Habilidades del Campeón</h2>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Tipo</th>
+                            <th class="text-center">Nombre</th>
+                            <th class="text-center">Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var habilidad in Model.Habilidades)
+                        {
+                            <tr>
+                                <td class="text-center">@habilidad.Tipo</td>
+                                <td class="text-center font-weight-bold">@habilidad.Nombre</td>
+                                <td class="text-center">@habilidad.DescripicionH</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center">
+    <a asp-action="Index" class="btn btn-primary">Volver a la Lista de Campeones</a>
+</div>

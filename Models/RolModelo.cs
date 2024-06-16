@@ -6,5 +6,6 @@
         public string Nombre { get; set; }
         public string DescripcionR { get; set; }
         public byte[] Imagen { get; set; }
+        public ICollection<CampeonModelo> Campeones { get; set; }
     }
 }

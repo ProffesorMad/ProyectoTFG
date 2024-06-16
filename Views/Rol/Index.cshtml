@@ -48,7 +48,9 @@
                         <img src="data:image;base64,@Convert.ToBase64String(rol.Imagen)" alt="Imagen de @rol.Nombre" style="max-height: 100px;" />
                     }
                 </td>
-                <td class="text-center-cell">@rol.Nombre</td>
+                <td class="text-center">
+                    <a asp-action="Details" asp-route-id="@rol.ID">@rol.Nombre</a>
+                </td>
                 <td class="text-center">@rol.DescripcionR</td>
                 <td class="text-center">
                     <a asp-action="Edit" asp-route-id="@rol.ID" class="btn btn-primary btn-sm">Editar</a>

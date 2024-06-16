@@ -26,13 +26,11 @@ namespace ProyectoTFG_League.Controllers
 
             IQueryable<CampeonModelo> campeonesQuery = Contexto.Campeones.Include(c => c.NombreRol);
 
-            // Aplicar el filtro actual
             if (!string.IsNullOrEmpty(currentFilter))
             {
                 campeonesQuery = campeonesQuery.Where(c => c.Nombre.Contains(currentFilter));
             }
 
-            // Aplicar la ordenación
             switch (sortOrder)
             {
                 case "nombre_desc":
@@ -138,7 +136,17 @@ namespace ProyectoTFG_League.Controllers
         // GET: CampeonController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var campeon = Contexto.Campeones
+                                     .Include(c => c.NombreRol)
+                                     .Include(c => c.Habilidades)
+                                     .FirstOrDefault(c => c.ID == id);
+
+            if (campeon == null)
+            {
+                return NotFound();
+            }
+
+            return View(campeon);
         }
 
         // GET: CampeonController/Create

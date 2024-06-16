@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProyectoTFG_League.Models;
 
 namespace ProyectoTFG_League.Controllers
@@ -23,7 +24,16 @@ namespace ProyectoTFG_League.Controllers
         // GET: RolController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var rol = Contexto.Roles
+                                .Include(r => r.Campeones)
+                                .FirstOrDefault(r => r.ID == id);
+
+            if (rol == null)
+            {
+                return NotFound();
+            }
+
+            return View(rol);
         }
 
         // GET: RolController/Create

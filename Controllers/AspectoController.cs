@@ -18,12 +18,32 @@ namespace ProyectoTFG_League.Controllers
         }
 
         // GET: AspectoController
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
-            var aspectos = Contexto.Aspectos.Include(a => a.CampeonNombre).ToList();
+            ViewBag.FechaSortOrder = sortOrder == "fecha_desc" ? "fecha_asc" : "fecha_desc";
+            ViewBag.PrecioSortOrder = sortOrder == "precio_desc" ? "precio_asc" : "precio_desc";
+
+            IQueryable<AspectoModelo> aspectosQuery = Contexto.Aspectos.Include(a => a.CampeonNombre).AsQueryable();
+
+            switch (sortOrder)
+            {
+                case "fecha_asc":
+                    aspectosQuery = aspectosQuery.OrderBy(a => a.Fecha);
+                    break;
+                case "fecha_desc":
+                    aspectosQuery = aspectosQuery.OrderByDescending(a => a.Fecha);
+                    break;
+                case "precio_asc":
+                    aspectosQuery = aspectosQuery.OrderBy(a => a.PrecioRP);
+                    break;
+                case "precio_desc":
+                    aspectosQuery = aspectosQuery.OrderByDescending(a => a.PrecioRP);
+                    break;
+            }
+
+            var aspectos = aspectosQuery.ToList();
             return View(aspectos);
         }
-
 
         // GET: AspectoController/Details/5
         public ActionResult Details(int id)
@@ -37,8 +57,11 @@ namespace ProyectoTFG_League.Controllers
         }
 
         // GET: AspectoController/Busqueda
-        public ActionResult Busqueda(string nombreAspecto, int? campeon, int? precio)
+        public ActionResult Busqueda(string nombreAspecto, int? campeon, int? precio, string sortOrder)
         {
+            ViewBag.FechaSortOrder = sortOrder == "fecha_desc" ? "fecha_asc" : "fecha_desc";
+            ViewBag.PrecioSortOrder = sortOrder == "precio_desc" ? "precio_asc" : "precio_desc";
+
             var campeones = Contexto.Campeones.Select(c => new SelectListItem
             {
                 Value = c.ID.ToString(),
@@ -61,15 +84,9 @@ namespace ProyectoTFG_League.Controllers
 
             ViewBag.Precios = precios;
 
-            var aspectosQuery = Contexto.Aspectos.Include(a => a.CampeonNombre).AsQueryable();
+            IQueryable<AspectoModelo> aspectosQuery = Contexto.Aspectos.Include(a => a.CampeonNombre).AsQueryable();
 
-            
-            if (!string.IsNullOrEmpty(nombreAspecto))
-            {
-                aspectosQuery = aspectosQuery.Where(a => a.Nombre.Contains(nombreAspecto));
-            }
-
-            if (campeon.HasValue && campeon.Value != 0) 
+            if (campeon.HasValue && campeon.Value != 0)
             {
                 aspectosQuery = aspectosQuery.Where(a => a.CampeonNombre.ID == campeon.Value);
             }
@@ -79,9 +96,24 @@ namespace ProyectoTFG_League.Controllers
                 aspectosQuery = aspectosQuery.Where(a => a.PrecioRP == precio.Value);
             }
 
+            switch (sortOrder)
+            {
+                case "fecha_asc":
+                    aspectosQuery = aspectosQuery.OrderBy(a => a.Fecha);
+                    break;
+                case "fecha_desc":
+                    aspectosQuery = aspectosQuery.OrderByDescending(a => a.Fecha);
+                    break;
+                case "precio_asc":
+                    aspectosQuery = aspectosQuery.OrderBy(a => a.PrecioRP);
+                    break;
+                case "precio_desc":
+                    aspectosQuery = aspectosQuery.OrderByDescending(a => a.PrecioRP);
+                    break;
+            }
+
             var aspectos = aspectosQuery.ToList();
 
-            ViewBag.NombreAspecto = nombreAspecto;
             ViewBag.CampeonSeleccionado = campeon;
             ViewBag.PrecioSeleccionado = precio;
 
