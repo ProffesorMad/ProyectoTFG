@@ -44,6 +44,9 @@
             <th class="text-center">
                 Enfriamiento (segundos)
             </th>
+            <th class="text-center">
+                Modo de Juego
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -69,6 +72,9 @@
                 </td>
                 <td class="text-center">
                     @Html.DisplayFor(modelItem => item.Enfriamiento)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.ModoH)
                 </td>
                 <td class="text-center">
                     <a asp-controller="Hechizo" asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning">Editar</a>

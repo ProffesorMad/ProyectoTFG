@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using ProyectoTFG_League.Models;
 
 namespace ProyectoTFG_League.Controllers
@@ -15,11 +16,91 @@ namespace ProyectoTFG_League.Controllers
         }
 
         // GET: ObjetoController
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter)
         {
-            var objetos = Contexto.Objetos.ToList();
+            ViewBag.CurrentFilter = currentFilter;
+
+            ViewBag.CosteAzulSortOrder = sortOrder == "costeAzul_asc" ? "costeAzul_desc" : "costeAzul_asc";
+
+            var objetos = Contexto.Objetos.AsQueryable();
+
+            switch (sortOrder)
+            {
+                case "costeAzul_desc":
+                    objetos = objetos.OrderByDescending(o => o.Coste);
+                    break;
+                case "costeAzul_asc":
+                    objetos = objetos.OrderBy(o => o.Coste);
+                    break;
+            }
+
+            return View(objetos.ToList());
+        }
+
+        public ActionResult Busqueda(string nombre, string tipo, string modo, string sortOrder, string currentFilter)
+        {
+            var tipos = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "", Text = "Todos" },
+                new SelectListItem { Value = "Iniciales", Text = "Iniciales" },
+                new SelectListItem { Value = "Consumibles", Text = "Consumibles" },
+                new SelectListItem { Value = "Wards", Text = "Wards" },
+                new SelectListItem { Value = "Distribuidos", Text = "Distribuidos" },
+                new SelectListItem { Value = "Botas", Text = "Botas" },
+                new SelectListItem { Value = "Basicos", Text = "Basicos" },
+                new SelectListItem { Value = "Epicos", Text = "Epicos" },
+                new SelectListItem { Value = "Legendarios", Text = "Legendarios" },
+                new SelectListItem { Value = "Exclusivos", Text = "Exclusivos" }
+            };
+
+            var modos = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "", Text = "Cualquier Modo" },
+                new SelectListItem { Value = "Grieta del Invocador", Text = "Grieta del Invocador" },
+                new SelectListItem { Value = "ARAM", Text = "ARAM" }
+            };
+
+            ViewBag.Tipos = tipos;
+            ViewBag.Modos = modos;
+            ViewBag.CurrentFilter = currentFilter;
+
+            var objetosQuery = Contexto.Objetos.AsQueryable();
+
+            if (!string.IsNullOrEmpty(nombre))
+            {
+                objetosQuery = objetosQuery.Where(o => o.Nombre.Contains(nombre));
+            }
+
+            if (!string.IsNullOrEmpty(tipo))
+            {
+                objetosQuery = objetosQuery.Where(o => o.Tipo == tipo);
+            }
+
+            if (!string.IsNullOrEmpty(modo))
+            {
+                objetosQuery = objetosQuery.Where(o => o.Modo.Contains(modo));
+            }
+
+            switch (sortOrder)
+            {
+                case "coste_asc":
+                    objetosQuery = objetosQuery.OrderBy(o => o.Coste);
+                    break;
+                case "coste_desc":
+                    objetosQuery = objetosQuery.OrderByDescending(o => o.Coste);
+                    break;
+            }
+
+            var objetos = objetosQuery.ToList();
+
+            ViewBag.Nombre = nombre;
+            ViewBag.TipoSeleccionado = tipo;
+            ViewBag.ModoSeleccionado = modo;
+            ViewBag.SortOrder = sortOrder;
+
             return View(objetos);
         }
+
 
         // GET: ObjetoController/Details/5
         public ActionResult Details(int id)
@@ -35,7 +116,7 @@ namespace ProyectoTFG_League.Controllers
                 "Iniciales", "Consumibles", "Wards", "Distribuidos", "Botas", "Basicos", "Epicos", "Legendarios", "Exclusivos"
             });
 
-            ViewBag.Modos = new MultiSelectList(new[]
+            ViewBag.Modos = new SelectList(new[]
             {
                 "Grieta del Invocador", "ARAM"
             });
@@ -80,7 +161,7 @@ namespace ProyectoTFG_League.Controllers
                 return NotFound();
             }
 
-            ViewBag.Modos = new MultiSelectList(new[]
+            ViewBag.Modos = new SelectList(new[]
             {
                 "Grieta del Invocador", "ARAM"
             }, objeto.Modo);

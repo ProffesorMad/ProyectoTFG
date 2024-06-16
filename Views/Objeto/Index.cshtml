@@ -1,27 +1,33 @@
-﻿ @model IEnumerable<ProyectoTFG_League.Models.ObjetoModelo>
+﻿@model IEnumerable<ProyectoTFG_League.Models.ObjetoModelo>
 
 @{
     ViewData["Title"] = "Lista de Objetos";
+
 }
 
 <style>
     .text-center {
         text-align: center;
     }
+
     .font-weight-bold {
         font-weight: bold;
     }
+
     .img-thumbnail {
         display: block;
         margin-left: auto;
         margin-right: auto;
     }
+
     .table {
         margin-top: 20px;
     }
-    .table th, .table td {
-        vertical-align: middle;
-    }
+
+        .table th, .table td {
+            vertical-align: middle;
+        }
+
     .btn-sm {
         margin: 2px;
     }
@@ -29,63 +35,56 @@
 
 <h1 class="text-center">Lista de Objetos</h1>
 
+<div class="text-right mb-3">
+    <a asp-action="Busqueda" class="btn btn-primary">Aplicar Filtros</a>
+</div>
+
 <table class="table table-striped">
     <thead>
         <tr>
+            <th class="text-center"></th>
+            <th class="text-center">Nombre</th>
+            <th class="text-center">Tipo</th>
+            <th class="text-center">Modo de Juego</th>
             <th class="text-center">
-                
+                <a href="@Url.Action("Index", new { sortOrder = ViewBag.CosteAzulSortOrder, currentFilter = ViewBag.CurrentFilter })">
+                    Coste
+                    @if (ViewBag.CosteAzulSortOrder == "costeAzul_desc")
+                    {
+                        <span>&#9660;</span>
+                    }
+                    else
+                    {
+                        <span>&#9650;</span>
+                    }
+                </a>
             </th>
-            <th class="text-center">
-                Nombre
-            </th>
-            <th class="text-center">
-                Tipo
-            </th>
-            <th class="text-center">
-                Modo de Juego 
-            </th>
-            <th class="text-center">
-                Coste
-            </th>
-            <th class="text-center">
-                Estadisticas
-            </th>
-            <th></th>
+            <th class="text-center">Estadisticas</th>
+            <th class="text-center"></th>
         </tr>
     </thead>
     <tbody>
- @foreach (var item in Model)
+        @foreach (var item in Model)
         {
             <tr>
                 <td class="text-center">
                     @if (item.Imagen != null)
                     {
-                        <img src="data:image;base64,@Convert.ToBase64String(item.Imagen)" alt="Imagen" width="75" height="75"/>
+                        <img src="data:image;base64,@Convert.ToBase64String(item.Imagen)" alt="Imagen" width="75" height="75" class="img-thumbnail" />
                     }
                 </td>
-            <td class="text-center">
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
+                <td class="text-center">@Html.DisplayFor(modelItem => item.Nombre)</td>
+                <td class="text-center">@Html.DisplayFor(modelItem => item.Tipo)</td>
+                <td class="text-center">@Html.DisplayFor(modelItem => item.Modo)</td>
+                <td class="text-center">@Html.DisplayFor(modelItem => item.Coste)</td>
+                <td class="text-center">@Html.DisplayFor(modelItem => item.Estadisticas)</td>
                 <td class="text-center">
-                @Html.DisplayFor(modelItem => item.Tipo)
-            </td>
-                <td class="text-center">
-                @Html.DisplayFor(modelItem => item.Modo)
-            </td>
-                <td class="text-center">
-                @Html.DisplayFor(modelItem => item.Coste)
-            </td>
-                <td class="text-center">
-                @Html.DisplayFor(modelItem => item.Estadisticas)
-            </td>
-            <td class="text-center">
-                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-sm">Editar</a> |
+                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-sm">Editar</a>
                     <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-sm">Eliminar</a>
-            </td>
-        </tr>
-}
+                </td>
+            </tr>
+        }
     </tbody>
-
 </table>
 <p>
     <a asp-action="Create" class="btn btn-primary">Añadir Nuevo Objeto</a>

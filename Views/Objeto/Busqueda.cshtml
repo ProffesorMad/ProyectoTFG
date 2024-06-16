@@ -1,0 +1,121 @@
+﻿@model IEnumerable<ProyectoTFG_League.Models.ObjetoModelo>
+
+@{
+    ViewData["Title"] = "Objetos";
+    var tipoSeleccionado = ViewBag.TipoSeleccionado ?? "";
+    var modoSeleccionado = ViewBag.ModoSeleccionado ?? "";
+    var nombreFiltro = ViewBag.Nombre ?? "";
+}
+
+<style>
+    .text-center {
+        text-align: center;
+    }
+
+    .font-weight-bold {
+        font-weight: bold;
+    }
+
+    .img-thumbnail {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        cursor: pointer;
+    }
+
+    .table {
+        margin-top: 20px;
+    }
+
+        .table th, .table td {
+            vertical-align: middle;
+        }
+
+    .btn-sm {
+        margin: 2px;
+    }
+</style>
+
+<h1 class="text-center">Lista de Objetos</h1>
+
+<form method="get" asp-action="Busqueda">
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="nombre">Nombre del Objeto</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" value="@nombreFiltro" placeholder="Nombre del Objeto">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="tipo">Tipo</label>
+            <select class="form-control" id="tipo" name="tipo">
+                @foreach (var item in ViewBag.Tipos)
+                {
+                    <option value="@item.Value" selected="@((item.Value == tipoSeleccionado) ? "selected" : null)">@item.Text</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="modo">Modo de Juego</label>
+            <select class="form-control" id="modo" name="modo">
+                @foreach (var item in ViewBag.Modos)
+                {
+                    <option value="@item.Value" selected="@((item.Value == modoSeleccionado) ? "selected" : null)">@item.Text</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </div>
+</form>
+
+<table class="table table-striped table-bordered text-center">
+    <thead>
+        <tr>
+            <th> </th>
+            <th class="text-center">Nombre</th>
+            <th class="text-center">Tipo</th>
+            <th class="text-center">Modo de Juego</th>
+            <th class="text-center">
+                <a href="@Url.Action("Busqueda", new { sortOrder = ViewBag.SortOrder == "coste_desc" ? "coste_asc" : "coste_desc" })">
+                    Coste
+                    @if (ViewBag.SortOrder == "coste_asc")
+                    {
+                        <span>&#9650;</span>
+                    }
+                    else if (ViewBag.SortOrder == "coste_desc")
+                    {
+                        <span>&#9660;</span>
+                    }
+                </a>
+            </th>
+            <th class="text-center">Estadisticas</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var objeto in Model)
+        {
+            <tr>
+                <td>
+                    @if (objeto.Imagen != null && objeto.Imagen.Length > 0)
+                    {
+                        var base64 = Convert.ToBase64String(objeto.Imagen);
+                        <img src="data:image;base64,@base64" alt="Imagen del objeto" class="img-thumbnail" width="75" height="75" />
+                    }
+                </td>
+                <td class="text-center font-weight-bold">@objeto.Nombre</td>
+                <td class="text-center">@objeto.Tipo</td>
+                <td class="text-center">@string.Join(", ", objeto.Modo)</td>
+                <td class="text-center">@Html.DisplayFor(modelItem => objeto.Coste)</td>
+                <td class="text-center">@Html.DisplayFor(modelItem => objeto.Estadisticas)</td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@objeto.ID" class="btn btn-primary btn-sm">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@objeto.ID" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -83,7 +83,6 @@ namespace ProyectoTFG_League.Controllers
                 campeonesQuery = campeonesQuery.Where(c => c.Nombre.Contains(nombre));
             }
 
-            // Configurar la lista de posiciones para el filtro
             ViewBag.Posiciones = new List<SelectListItem>
             {
                 new SelectListItem { Text = "Todas las posiciones", Value = "" },
@@ -94,7 +93,6 @@ namespace ProyectoTFG_League.Controllers
                 new SelectListItem { Text = "Support", Value = "Support" }
             };
 
-            // Aplicar la ordenación
             switch (sortOrder)
             {
                 case "nombre_desc":
@@ -122,14 +120,13 @@ namespace ProyectoTFG_League.Controllers
                     campeonesQuery = campeonesQuery.OrderBy(c => c.CosteAzul);
                     break;
                 default:
-                    campeonesQuery = campeonesQuery.OrderBy(c => c.Nombre); // Ordenación por defecto
-                    sortOrder = "nombre_desc"; // Establecer ordenación por nombre descendente por defecto
+                    campeonesQuery = campeonesQuery.OrderBy(c => c.Nombre);
+                    sortOrder = "nombre_desc";
                     break;
             }
 
             var campeones = campeonesQuery.ToList();
 
-            // Guardar los filtros aplicados en ViewBag para usarlos en la vista
             ViewBag.Posicion = posicion;
             ViewBag.Nombre = nombre;
             ViewBag.SortOrder = sortOrder;
