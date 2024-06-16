@@ -83,8 +83,17 @@ namespace ProyectoTFG_League.Controllers
         // POST: HabilidadController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(HabilidadModelo habilidad)
+        public ActionResult Create(HabilidadModelo habilidad, IFormFile imagen)
         {
+            if (imagen != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    imagen.CopyTo(memoryStream);
+                    habilidad.Imagen = memoryStream.ToArray();
+                }
+            }
+
             habilidad.CampeonNombre = Contexto.Campeones.Find(habilidad.CampeonNombre.ID);
             Contexto.Habilidades.Add(habilidad);
             Contexto.SaveChanges();
