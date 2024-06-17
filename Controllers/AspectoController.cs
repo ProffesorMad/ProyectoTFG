@@ -157,7 +157,7 @@ namespace ProyectoTFG_League.Controllers
 
             try
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Create));
             }
             catch
             {

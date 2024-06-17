@@ -76,9 +76,10 @@ namespace ProyectoTFG_League.Controllers
                 objetosQuery = objetosQuery.Where(o => o.Tipo == tipo);
             }
 
+            // Filtración en memoria para la propiedad Modo
             if (!string.IsNullOrEmpty(modo))
             {
-                objetosQuery = objetosQuery.Where(o => o.Modo.Contains(modo));
+                objetosQuery = objetosQuery.AsEnumerable().Where(o => o.Modo.Contains(modo)).AsQueryable();
             }
 
             switch (sortOrder)
@@ -100,7 +101,6 @@ namespace ProyectoTFG_League.Controllers
 
             return View(objetos);
         }
-
 
         // GET: ObjetoController/Details/5
         public ActionResult Details(int id)
@@ -144,7 +144,7 @@ namespace ProyectoTFG_League.Controllers
 
             try
             {
-                return RedirectToAction(nameof(Create));
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
@@ -169,7 +169,7 @@ namespace ProyectoTFG_League.Controllers
             ViewBag.Modos = new SelectList(new[]
             {
                 "Grieta del Invocador", "ARAM"
-            },);
+            }, objeto.Modo);
 
             return View(objeto);
         }
