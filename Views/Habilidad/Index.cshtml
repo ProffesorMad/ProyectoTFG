@@ -35,9 +35,9 @@
     <thead>
         <tr>
             <th class="text-center"></th>
-            <th class="text-center">Campeón</th>
-            <th class="text-center">Tipo</th>
             <th class="text-center">Nombre</th>
+            <th class="text-center">Tipo</th>
+            <th class="text-center">Campeón</th>
             <th class="text-center">Descripción</th>
         </tr>
     </thead>
@@ -48,12 +48,12 @@
                 <td class="text-center">
                     @if (item.Imagen != null && item.Imagen.Length > 0)
                     {
-                        <img src="data:image;base64,@Convert.ToBase64String(item.Imagen)" alt="Imagen de @item.Nombre" class="img-thumbnail" width="75" height="75" />
+                        <img src="data:image;base64,@Convert.ToBase64String(item.Imagen)" alt="Imagen de @item.Nombre" width="75" height="75" />
                     }
                 </td>
-                <td class="text-center">@item.CampeonNombre?.Nombre</td>
-                <td class="text-center">@item.Tipo</td>
                 <td class="text-center font-weight-bold">@item.Nombre</td>
+                <td class="text-center">@item.Tipo</td>
+                <td class="text-center">@item.CampeonNombre?.Nombre</td>
                 <td class="text-center">@item.DescripicionH</td>
                 <td class="text-center">
                     <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning">Editar</a>

@@ -81,7 +81,7 @@
             <th class="text-center">Gama</th>
             <th class="text-center">
                 <a href="@Url.Action("Busqueda", new { sortOrder = ViewBag.SortOrder == "fecha_desc" ? "fecha_asc" : "fecha_desc", posicion = ViewBag.Posicion, nombre = ViewBag.Nombre })">
-                    Fecha
+                    Año de Salida
                     @if (ViewBag.SortOrder == "fecha_desc")
                     {
                         <span>&#9660;</span>
@@ -118,7 +118,6 @@
                     }
                 </a>
             </th>
-            <th class="text-center">Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -132,7 +131,9 @@
                         <img src="data:image;base64,@base64" alt="Imagen del campeón" class="img-thumbnail" width="75" height="75" />
                     }
                 </td>
-                <td class="text-center font-weight-bold">@campeon.Nombre</td>
+                <td class="text-center font-weight-bold">
+                    <a asp-action="Details" asp-route-id="@campeon.ID">@campeon.Nombre</a>
+                </td>
                 <td>@campeon.NombreRol.Nombre</td>
                 <td>@campeon.Posicion</td>
                 <td>@campeon.Recurso</td>

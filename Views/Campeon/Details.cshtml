@@ -3,6 +3,28 @@
 @{
     ViewData["Title"] = "Detalles del Campeón";
 }
+<style>
+    .text-center {
+        text-align: center;
+    }
+    .font-weight-bold {
+        font-weight: bold;
+    }
+    .img-thumbnail {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .table {
+        margin-top: 20px;
+    }
+    .table th, .table td {
+        vertical-align: middle;
+    }
+    .btn-sm {
+        margin: 2px;
+    }
+</style>
 
 <h1 class="text-center">@Model.Nombre</h1>
 
@@ -14,8 +36,9 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th class="text-center">Tipo</th>
+                            <th class="text-center"></th>
                             <th class="text-center">Nombre</th>
+                            <th class="text-center">Tipo</th>
                             <th class="text-center">Descripción</th>
                         </tr>
                     </thead>
@@ -23,8 +46,14 @@
                         @foreach (var habilidad in Model.Habilidades)
                         {
                             <tr>
-                                <td class="text-center">@habilidad.Tipo</td>
+                                <td class="text-center">
+                                    @if (habilidad.Imagen != null && habilidad.Imagen.Length > 0)
+                                    {
+                                        <img src="data:image;base64,@Convert.ToBase64String(habilidad.Imagen)" alt="Imagen de @habilidad.Nombre" class="img-thumbnail" width="75" height="75" />
+                                    }
+                                </td>
                                 <td class="text-center font-weight-bold">@habilidad.Nombre</td>
+                                <td class="text-center">@habilidad.Tipo</td>
                                 <td class="text-center">@habilidad.DescripicionH</td>
                             </tr>
                         }

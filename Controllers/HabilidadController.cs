@@ -100,7 +100,7 @@ namespace ProyectoTFG_League.Controllers
 
             try
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Create));
             }
             catch
             {
@@ -119,20 +119,20 @@ namespace ProyectoTFG_League.Controllers
             }
             ViewBag.Campeones = new SelectList(Contexto.Campeones, "ID", "Nombre");
             ViewBag.Tipos = new List<SelectListItem>
-                {
-                    new SelectListItem { Value = "Pasiva", Text = "Pasiva" },
-                    new SelectListItem { Value = "Q", Text = "Q" },
-                    new SelectListItem { Value = "W", Text = "W" },
-                    new SelectListItem { Value = "E", Text = "E" },
-                    new SelectListItem { Value = "R", Text = "R" }
-                };
+            {
+                new SelectListItem { Value = "Pasiva", Text = "Pasiva" },
+                new SelectListItem { Value = "Q", Text = "Q" },
+                new SelectListItem { Value = "W", Text = "W" },
+                new SelectListItem { Value = "E", Text = "E" },
+                new SelectListItem { Value = "R", Text = "R" }
+            };
             return View(habilidad);
         }
 
         // POST: HabilidadController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, HabilidadModelo habilidad)
+        public ActionResult Edit(int id, HabilidadModelo habilidad, IFormFile imagen)
         {
             if (id != habilidad.ID)
             {
@@ -149,6 +149,15 @@ namespace ProyectoTFG_League.Controllers
             existingHabilidad.Nombre = habilidad.Nombre;
             existingHabilidad.DescripicionH = habilidad.DescripicionH;
             existingHabilidad.CampeonNombre = Contexto.Campeones.Find(habilidad.CampeonNombre.ID);
+
+            if (imagen != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    imagen.CopyTo(memoryStream);
+                    existingHabilidad.Imagen = memoryStream.ToArray();
+                }
+            }
 
             Contexto.Habilidades.Update(existingHabilidad);
             Contexto.SaveChanges();

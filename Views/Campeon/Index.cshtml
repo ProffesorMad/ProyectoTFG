@@ -56,7 +56,7 @@
             <th class="text-center">Gama</th>
             <th class="text-center">
                 <a href="@Url.Action("Index", new { sortOrder = ViewBag.FechaSortOrder, currentFilter = ViewBag.CurrentFilter })">
-                    Fecha
+                    Año de Salida
                     @if (ViewBag.FechaSortOrder == "fecha_desc")
                     {
                         <span>&#9660;</span>
@@ -106,7 +106,7 @@
                         <img src="data:image;base64,@Convert.ToBase64String(campeon.Imagen)" alt="Imagen de @campeon.Nombre" class="img-thumbnail" width="75" height="75" />
                     }
                 </td>
-                <td>
+                <td class="text-center font-weight-bold">
                     <a asp-action="Details" asp-route-id="@campeon.ID">@campeon.Nombre</a>
                 </td>
                 <td>@campeon.NombreRol.Nombre</td>

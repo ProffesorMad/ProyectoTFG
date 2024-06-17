@@ -5,6 +5,33 @@
     var tipoSeleccionado = ViewBag.TipoSeleccionado != null ? ViewBag.TipoSeleccionado.ToString() : "";
     var nombreHabilidad = ViewBag.NombreHabilidad != null ? ViewBag.NombreHabilidad.ToString() : "";
 }
+<style>
+    .text-center {
+        text-align: center;
+    }
+
+    .font-weight-bold {
+        font-weight: bold;
+    }
+
+    .img-thumbnail {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .table {
+        margin-top: 20px;
+    }
+
+        .table th, .table td {
+            vertical-align: middle;
+        }
+
+    .btn-sm {
+        margin: 2px;
+    }
+</style>
 
 <h1 class="text-center">Lista de Habilidades</h1>
 
@@ -37,19 +64,26 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Campeón</th>
-            <th>Tipo</th>
-            <th>Nombre</th>
-            <th>Descripción</th>
+            <th class="text-center"></th>
+            <th class="text-center">Nombre</th>
+            <th class="text-center">Tipo</th>
+            <th class="text-center">Campeón</th>
+            <th class="text-center">Descripción</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var habilidad in Model)
         {
             <tr>
-                <td class="text-center">@habilidad.CampeonNombre?.Nombre</td>
-                <td class="text-center">@habilidad.Tipo</td>
+                <td class="text-center">
+                    @if (habilidad.Imagen != null && habilidad.Imagen.Length > 0)
+                    {
+                        <img src="data:image;base64,@Convert.ToBase64String(habilidad.Imagen)" alt="Imagen de @habilidad.Nombre" width="75" height="75" />
+                    }
+                </td>
                 <td class="text-center font-weight-bold">@habilidad.Nombre</td>
+                <td class="text-center">@habilidad.Tipo</td>
+                <td class="text-center">@habilidad.CampeonNombre?.Nombre</td>
                 <td class="text-center">@habilidad.DescripicionH</td>
                 <td class="text-center">
                     <a asp-action="Edit" asp-route-id="@habilidad.ID" class="btn btn-warning">Editar</a>
