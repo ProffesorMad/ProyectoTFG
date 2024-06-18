@@ -58,95 +58,104 @@
     </div>
 </form>
 <br />
-<table class="table table-striped table-bordered text-center">
-    <thead>
-        <tr>
-            <th class="text-center"></th>
-            <th class="text-center">
-                <a href="@Url.Action("Busqueda", new { sortOrder = ViewBag.SortOrder == "nombre_desc" ? "nombre_asc" : "nombre_desc", posicion = ViewBag.Posicion, nombre = ViewBag.Nombre })">
-                    Nombre
-                    @if (ViewBag.SortOrder == "nombre_desc")
-                    {
-                        <span>&#9660;</span>
-                    }
-                    else if (ViewBag.SortOrder == "nombre_asc")
-                    {
-                        <span>&#9650;</span>
-                    }
-                </a>
-            </th>
-            <th class="text-center">Rol</th>
-            <th class="text-center">Posición</th>
-            <th class="text-center">Recurso</th>
-            <th class="text-center">Gama</th>
-            <th class="text-center">
-                <a href="@Url.Action("Busqueda", new { sortOrder = ViewBag.SortOrder == "fecha_desc" ? "fecha_asc" : "fecha_desc", posicion = ViewBag.Posicion, nombre = ViewBag.Nombre })">
-                    Año de Salida
-                    @if (ViewBag.SortOrder == "fecha_desc")
-                    {
-                        <span>&#9660;</span>
-                    }
-                    else if (ViewBag.SortOrder == "fecha_asc")
-                    {
-                        <span>&#9650;</span>
-                    }
-                </a>
-            </th>
-            <th class="text-center">
-                <a href="@Url.Action("Busqueda", new { sortOrder = ViewBag.SortOrder == "costeRP_desc" ? "costeRP_asc" : "costeRP_desc", posicion = ViewBag.Posicion, nombre = ViewBag.Nombre })">
-                    Coste RP
-                    @if (ViewBag.SortOrder == "costeRP_desc")
-                    {
-                        <span>&#9660;</span>
-                    }
-                    else if (ViewBag.SortOrder == "costeRP_asc")
-                    {
-                        <span>&#9650;</span>
-                    }
-                </a>
-            </th>
-            <th class="text-center">
-                <a href="@Url.Action("Busqueda", new { sortOrder = ViewBag.SortOrder == "costeAzul_desc" ? "costeAzul_asc" : "costeAzul_desc", posicion = ViewBag.Posicion, nombre = ViewBag.Nombre })">
-                    Coste Esencias
-                    @if (ViewBag.SortOrder == "costeAzul_desc")
-                    {
-                        <span>&#9660;</span>
-                    }
-                    else if (ViewBag.SortOrder == "costeAzul_asc")
-                    {
-                        <span>&#9650;</span>
-                    }
-                </a>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var campeon in Model)
-        {
-            <tr>
-                <td class="text-center-cell">
-                    @if (campeon.Imagen != null && campeon.Imagen.Length > 0)
-                    {
-                        var base64 = Convert.ToBase64String(campeon.Imagen);
-                        <img src="data:image;base64,@base64" alt="Imagen del campeón" class="img-thumbnail" width="75" height="75" />
-                    }
-                </td>
-                <td class="text-center font-weight-bold">
-                    <a asp-action="Details" asp-route-id="@campeon.ID">@campeon.Nombre</a>
-                </td>
-                <td>@campeon.NombreRol.Nombre</td>
-                <td>@campeon.Posicion</td>
-                <td>@campeon.Recurso</td>
-                <td>@campeon.Gama</td>
-                <td>@campeon.Fecha</td>
-                <td>@campeon.CosteRP</td>
-                <td>@campeon.CosteAzul</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@campeon.ID" class="btn btn-warning mb-2">Editar</a>
-                    <a asp-action="Delete" asp-route-id="@campeon.ID" class="btn btn-danger">Eliminar</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
 
+@if (ViewBag.NoDataMessage != null)
+{
+    <div class="alert alert-warning text-center">
+        @ViewBag.NoDataMessage
+    </div>
+}
+else
+{
+    <table class="table table-striped table-bordered text-center">
+        <thead>
+            <tr>
+                <th class="text-center"></th>
+                <th class="text-center">
+                    <a href="@Url.Action("Busqueda", new { sortOrder = ViewBag.SortOrder == "nombre_desc" ? "nombre_asc" : "nombre_desc", posicion = ViewBag.Posicion, nombre = ViewBag.Nombre })">
+                        Nombre
+                        @if (ViewBag.SortOrder == "nombre_desc")
+                        {
+                            <span>&#9660;</span>
+                        }
+                        else if (ViewBag.SortOrder == "nombre_asc")
+                        {
+                            <span>&#9650;</span>
+                        }
+                    </a>
+                </th>
+                <th class="text-center">Rol</th>
+                <th class="text-center">Posición</th>
+                <th class="text-center">Recurso</th>
+                <th class="text-center">Gama</th>
+                <th class="text-center">
+                    <a href="@Url.Action("Busqueda", new { sortOrder = ViewBag.SortOrder == "fecha_desc" ? "fecha_asc" : "fecha_desc", posicion = ViewBag.Posicion, nombre = ViewBag.Nombre })">
+                        Año de Salida
+                        @if (ViewBag.SortOrder == "fecha_desc")
+                        {
+                            <span>&#9660;</span>
+                        }
+                        else if (ViewBag.SortOrder == "fecha_asc")
+                        {
+                            <span>&#9650;</span>
+                        }
+                    </a>
+                </th>
+                <th class="text-center">
+                    <a href="@Url.Action("Busqueda", new { sortOrder = ViewBag.SortOrder == "costeRP_desc" ? "costeRP_asc" : "costeRP_desc", posicion = ViewBag.Posicion, nombre = ViewBag.Nombre })">
+                        Coste RP
+                        @if (ViewBag.SortOrder == "costeRP_desc")
+                        {
+                            <span>&#9660;</span>
+                        }
+                        else if (ViewBag.SortOrder == "costeRP_asc")
+                        {
+                            <span>&#9650;</span>
+                        }
+                    </a>
+                </th>
+                <th class="text-center">
+                    <a href="@Url.Action("Busqueda", new { sortOrder = ViewBag.SortOrder == "costeAzul_desc" ? "costeAzul_asc" : "costeAzul_desc", posicion = ViewBag.Posicion, nombre = ViewBag.Nombre })">
+                        Coste Esencias
+                        @if (ViewBag.SortOrder == "costeAzul_desc")
+                        {
+                            <span>&#9660;</span>
+                        }
+                        else if (ViewBag.SortOrder == "costeAzul_asc")
+                        {
+                            <span>&#9650;</span>
+                        }
+                    </a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var campeon in Model)
+            {
+                <tr>
+                    <td class="text-center-cell">
+                        @if (campeon.Imagen != null && campeon.Imagen.Length > 0)
+                        {
+                            var base64 = Convert.ToBase64String(campeon.Imagen);
+                            <img src="data:image;base64,@base64" alt="Imagen del campeón" class="img-thumbnail" width="75" height="75" />
+                        }
+                    </td>
+                    <td class="text-center font-weight-bold">
+                        <a asp-action="Details" asp-route-id="@campeon.ID">@campeon.Nombre</a>
+                    </td>
+                    <td>@campeon.NombreRol.Nombre</td>
+                    <td>@campeon.Posicion</td>
+                    <td>@campeon.Recurso</td>
+                    <td>@campeon.Gama</td>
+                    <td>@campeon.Fecha</td>
+                    <td>@campeon.CosteRP</td>
+                    <td>@campeon.CosteAzul</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@campeon.ID" class="btn btn-sm btn-primary">Editar</a>
+                        <a asp-action="Delete" asp-route-id="@campeon.ID" class="btn btn-sm btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

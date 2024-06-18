@@ -62,6 +62,11 @@ namespace ProyectoTFG_League.Controllers
             ViewBag.TipoSeleccionado = tipo;
             ViewBag.NombreHabilidad = nombreHabilidad;
 
+            if (!habilidades.Any())
+            {
+                ViewBag.NoDataMessage = "No Existen Datos Con Esas Características";
+            }
+
             return View(habilidades);
         }
 

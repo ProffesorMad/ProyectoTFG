@@ -82,14 +82,14 @@ namespace ProyectoTFG_League.Controllers
             }
 
             ViewBag.Posiciones = new List<SelectListItem>
-            {
-                new SelectListItem { Text = "Todas las posiciones", Value = "" },
-                new SelectListItem { Text = "Top", Value = "Top" },
-                new SelectListItem { Text = "Jungla", Value = "Jungla" },
-                new SelectListItem { Text = "Medio", Value = "Medio" },
-                new SelectListItem { Text = "ADC", Value = "ADC" },
-                new SelectListItem { Text = "Support", Value = "Support" }
-            };
+    {
+        new SelectListItem { Text = "Todas las posiciones", Value = "" },
+        new SelectListItem { Text = "Top", Value = "Top" },
+        new SelectListItem { Text = "Jungla", Value = "Jungla" },
+        new SelectListItem { Text = "Medio", Value = "Medio" },
+        new SelectListItem { Text = "ADC", Value = "ADC" },
+        new SelectListItem { Text = "Support", Value = "Support" }
+    };
 
             switch (sortOrder)
             {
@@ -129,9 +129,14 @@ namespace ProyectoTFG_League.Controllers
             ViewBag.Nombre = nombre;
             ViewBag.SortOrder = sortOrder;
 
+            // Añadimos el mensaje de error si no hay datos
+            if (!campeones.Any())
+            {
+                ViewBag.NoDataMessage = "No Existen Datos Con Esas Características";
+            }
+
             return View(campeones);
         }
-
 
         // GET: CampeonController/Details/5
         public ActionResult Details(int id)

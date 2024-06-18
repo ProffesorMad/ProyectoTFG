@@ -61,6 +61,14 @@
     </div>
 </form>
 <br />
+@if (ViewBag.NoDataMessage != null)
+{
+    <div class="alert alert-warning text-center">
+        @ViewBag.NoDataMessage
+    </div>
+}
+else
+{
 <table class="table">
     <thead>
         <tr>
@@ -93,3 +101,4 @@
         }
     </tbody>
 </table>
+}

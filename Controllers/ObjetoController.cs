@@ -98,6 +98,11 @@ namespace ProyectoTFG_League.Controllers
             ViewBag.ModoSeleccionado = modo;
             ViewBag.SortOrder = sortOrder;
 
+            if (!objetos.Any())
+            {
+                ViewBag.NoDataMessage = "No Existen Datos Con Esas Características";
+            }
+
             return View(objetos);
         }
 

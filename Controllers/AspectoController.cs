@@ -123,8 +123,14 @@ namespace ProyectoTFG_League.Controllers
             ViewBag.CampeonSeleccionado = campeon;
             ViewBag.PrecioSeleccionado = precio;
 
+            if (!aspectos.Any())
+            {
+                ViewBag.NoDataMessage = "No Existen Datos Con Esas Características";
+            }
+
             return View(aspectos);
         }
+
 
 
         // GET: AspectoController/Create
