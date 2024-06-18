@@ -4,9 +4,7 @@
     ViewData["Title"] = "Eliminar Campeon";
 }
 
-<h1>Eliminar Campeón</h1>
-<br />
-<h3>¿Estás Seguro de que quieres Eliminar este Campeón?</h3>
+<h3 class="text-center">¿Estás Seguro de que quieres Eliminar este Campeón?</h3>
 <br />
 <div>
     <hr />
@@ -14,21 +12,19 @@
         <dd class="col-sm-10">
             @if (Model.Imagen != null)
             {
-                <img src="data:image;base64,@(Convert.ToBase64String(Model.Imagen))" alt="Imagen" class="img-thumbnail" width="75" height="75" />
-            }
-            else
-            {
-                <p>No Image</p>
+                <img src="data:image;base64,@(Convert.ToBase64String(Model.Imagen))" alt="Imagen" width="60" height="60" />
             }
         </dd>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
+            <span class="font-weight-bold h4">@Html.DisplayFor(model => model.Nombre)</span>
         </dd>
     </dl>
 
-    <form asp-action="Delete">
+    <form asp-action="Delete" method="post">
         <input type="hidden" asp-for="ID" />
-        <input type="submit" value="Eliminar" class="btn btn-danger" /> |||
-        <a asp-action="Index" class="btn btn-primary">Cancelar</a>
+        <div class="form-group">
+            <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </div>
     </form>
 </div>

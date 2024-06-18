@@ -49,7 +49,7 @@
                                 <td class="text-center">
                                     @if (habilidad.Imagen != null && habilidad.Imagen.Length > 0)
                                     {
-                                        <img src="data:image;base64,@Convert.ToBase64String(habilidad.Imagen)" alt="Imagen de @habilidad.Nombre" class="img-thumbnail" width="75" height="75" />
+                                        <img src="data:image;base64,@Convert.ToBase64String(habilidad.Imagen)" alt="Imagen de @habilidad.Nombre" width="60" height="60" />
                                     }
                                 </td>
                                 <td class="text-center font-weight-bold">@habilidad.Nombre</td>

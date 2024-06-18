@@ -4,7 +4,7 @@
     ViewData["Title"] = "Editar Aspecto";
 }
 
-<h1>Editar Aspecto</h1>
+<h1 class="text-center">Editar Aspecto</h1>
 
 <hr />
 <div class="row">
@@ -42,15 +42,15 @@
             </div>
             <br />
             <div class="form-group">
-                <input type="submit" value="Guardar" class="btn btn-primary" />
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                    &nbsp;&nbsp;
+                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                </div>
             </div>
             <br />
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Cancelar</a>
 </div>
 
 @section Scripts {

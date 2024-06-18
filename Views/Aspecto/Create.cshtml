@@ -4,8 +4,8 @@
     ViewData["Title"] = "Añadir Aspecto";
 }
 
-<h1>Añadir Aspecto</h1>
-
+<h1 class="text-center">Añadir Aspecto</h1>
+<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" enctype="multipart/form-data">
@@ -40,15 +40,15 @@
             </div>
             <br />
             <div class="form-group">
-                <input type="submit" value="Crear" class="btn btn-primary" />
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Añadir" class="btn btn-primary" />
+                    &nbsp;&nbsp;
+                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                </div>
             </div>
             <br />
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Volver a la Lista</a>
 </div>
 
 @section Scripts {

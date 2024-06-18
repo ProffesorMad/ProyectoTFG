@@ -5,7 +5,7 @@
 }
 
 <h1 class="text-center">Editar Habilidad</h1>
-<br />
+<hr />
 <form asp-action="Edit" method="post" class="form-horizontal" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="Tipo" class="control-label col-md-2">Tipo</label>
@@ -49,14 +49,12 @@
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Guardar" class="btn btn-primary" />
+            &nbsp;&nbsp;
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
         </div>
     </div>
 </form>
 <br />
-<div>
-    <a asp-action="Index">Cancelar</a>
-</div>
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
