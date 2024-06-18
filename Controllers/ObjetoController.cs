@@ -163,12 +163,7 @@ namespace ProyectoTFG_League.Controllers
             ViewBag.Tipos = new SelectList(new[]
             {
                 "Iniciales", "Consumibles", "Wards", "Distribuidos", "Botas", "Basicos", "Epicos", "Legendarios", "Exclusivos"
-            });
-
-            ViewBag.Modos = new SelectList(new[]
-            {
-                "Grieta del Invocador", "ARAM"
-            }, objeto.Modo);
+            }, objeto.Tipo);
 
             return View(objeto);
         }
