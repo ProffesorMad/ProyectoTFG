@@ -86,6 +86,11 @@ namespace ProyectoTFG_League.Controllers
 
             IQueryable<AspectoModelo> aspectosQuery = Contexto.Aspectos.Include(a => a.CampeonNombre).AsQueryable();
 
+            if (!string.IsNullOrEmpty(nombreAspecto))
+            {
+                aspectosQuery = aspectosQuery.Where(a => a.Nombre.Contains(nombreAspecto));
+            }
+
             if (campeon.HasValue && campeon.Value != 0)
             {
                 aspectosQuery = aspectosQuery.Where(a => a.CampeonNombre.ID == campeon.Value);
@@ -114,11 +119,13 @@ namespace ProyectoTFG_League.Controllers
 
             var aspectos = aspectosQuery.ToList();
 
+            ViewBag.NombreAspecto = nombreAspecto;
             ViewBag.CampeonSeleccionado = campeon;
             ViewBag.PrecioSeleccionado = precio;
 
             return View(aspectos);
         }
+
 
         // GET: AspectoController/Create
         public ActionResult Create()

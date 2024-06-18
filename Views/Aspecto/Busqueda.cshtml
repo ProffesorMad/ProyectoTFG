@@ -4,6 +4,7 @@
     ViewData["Title"] = "Buscar Aspectos";
     var campeonSeleccionado = ViewBag.CampeonSeleccionado != null ? ViewBag.CampeonSeleccionado.ToString() : "0";
     var precioSeleccionado = ViewBag.PrecioSeleccionado != null ? ViewBag.PrecioSeleccionado.ToString() : "0";
+    var nombreAspecto = ViewBag.NombreAspecto != null ? ViewBag.NombreAspecto.ToString() : "";
 }
 
 <style>
@@ -41,7 +42,7 @@
     <div class="form-row">
         <div class="col-md-4 mb-3">
             <label for="nombreAspecto">Nombre del Aspecto</label>
-            <input type="text" class="form-control" id="nombreAspecto" name="nombreAspecto" value="@ViewBag.NombreAspecto" placeholder="Nombre del Aspecto">
+            <input type="text" class="form-control" id="nombreAspecto" name="nombreAspecto" value="@nombreAspecto" placeholder="Nombre del Aspecto">
         </div>
         <div class="col-md-4 mb-3">
             <label for="campeon">Campeón</label>
@@ -140,7 +141,7 @@
 @section Scripts {
     <script>
         function ampliarImagen(base64String) {
-            
+
             var modal = document.createElement('div');
             modal.style.position = 'fixed';
             modal.style.zIndex = '1000';

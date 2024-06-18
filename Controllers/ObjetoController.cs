@@ -36,7 +36,7 @@ namespace ProyectoTFG_League.Controllers
 
             return View(objetos.ToList());
         }
-
+        // GET: ObjetoController/Busqueda
         public ActionResult Busqueda(string nombre, string tipo, string modo, string sortOrder, string currentFilter)
         {
             var tipos = new List<SelectListItem>
@@ -76,10 +76,9 @@ namespace ProyectoTFG_League.Controllers
                 objetosQuery = objetosQuery.Where(o => o.Tipo == tipo);
             }
 
-            // Filtración en memoria para la propiedad Modo
             if (!string.IsNullOrEmpty(modo))
             {
-                objetosQuery = objetosQuery.AsEnumerable().Where(o => o.Modo.Contains(modo)).AsQueryable();
+                objetosQuery = objetosQuery.AsEnumerable().Where(o => o.Modo.Any(m => m.Contains(modo))).AsQueryable();
             }
 
             switch (sortOrder)
