@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "yxhqjOzIx2PEYRRwKbNe8C9hIQHL8oVuEHNCa7AITto=",
+  "Hash": "DOL4bYTpXR/rDP1Zn3hTtaqvLDh+T+9jdlGZzT4zi+s=",
   "Source": "ProyectoTFG_League",
   "BasePath": "_content/ProyectoTFG_League",
   "Mode": "Default",
@@ -83,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\pablg\\Desktop\\ProyectoTFG_League\\wwwroot\\images\\fondo.jpg",
+      "SourceId": "ProyectoTFG_League",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\pablg\\Desktop\\ProyectoTFG_League\\wwwroot\\",
+      "BasePath": "_content/ProyectoTFG_League",
+      "RelativePath": "images/fondo.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\fondo.jpg"
     },
     {
       "Identity": "C:\\Users\\pablg\\Desktop\\ProyectoTFG_League\\wwwroot\\images\\logo.jpg",
