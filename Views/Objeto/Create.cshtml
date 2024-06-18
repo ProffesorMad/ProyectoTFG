@@ -58,14 +58,12 @@
     <br />
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Crear" class="btn btn-primary" />
+            <input type="submit" value="Añadir" class="btn btn-primary" />
+            &nbsp;&nbsp;
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
         </div>
     </div>
 </form>
-<br />
-<div>
-    <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

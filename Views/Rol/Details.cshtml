@@ -5,36 +5,21 @@
 }
 
 <h1 class="text-center">@Model.Nombre</h1>
-
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col">
-            <h2>Campeones que son de este rol</h2>
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered text-center" style="width: 25%;">
-                    <thead>
-                        <tr>
-                            <th style="width: 100px;"></th>
-                            <th>Nombre</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var campeon in Model.Campeones)
+    <div class="row">
+        @foreach (var campeon in Model.Campeones)
+        {
+            <div class="col-md-3">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        @if (campeon.Imagen != null && campeon.Imagen.Length > 0)
                         {
-                            <tr>
-                                <td style="vertical-align: middle;">
-                                    @if (campeon.Imagen != null && campeon.Imagen.Length > 0)
-                                    {
-                                        <img src="data:image;base64,@Convert.ToBase64String(campeon.Imagen)" alt="Imagen de @campeon.Nombre" class="img-thumbnail" width="75" height="75" style="display: block; margin: 0 auto;" />
-                                    }
-                                </td>
-                                <td style="vertical-align: middle;">@campeon.Nombre</td>
-                            </tr>
+                            <img src="data:image;base64,@Convert.ToBase64String(campeon.Imagen)" alt="Imagen de @campeon.Nombre" class="img-thumbnail" width="75" height="75" style="display: block; margin: 0 auto;" />
                         }
-                    </tbody>
-                </table>
+                        <h5 class="card-title mt-2">@campeon.Nombre</h5>
+                    </div>
+                </div>
             </div>
-        </div>
+        }
     </div>
 </div>
 

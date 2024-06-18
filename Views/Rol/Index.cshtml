@@ -8,22 +8,31 @@
     .text-center {
         text-align: center;
     }
+
     .font-weight-bold {
         font-weight: bold;
     }
+
     .img-thumbnail {
         display: block;
         margin-left: auto;
         margin-right: auto;
     }
+
     .table {
         margin-top: 20px;
     }
-    .table th, .table td {
-        vertical-align: middle;
-    }
+
+        .table th, .table td {
+            vertical-align: middle;
+        }
+
     .btn-sm {
         margin: 2px;
+    }
+
+    .mb-2 {
+        margin-bottom: 0.5rem;
     }
 </style>
 
@@ -35,7 +44,7 @@
             <th class="text-center"></th>
             <th class="text-center">Rol</th>
             <th class="text-center">Descripción</th>
-            
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -45,23 +54,21 @@
                 <td class="text-center">
                     @if (rol.Imagen != null && rol.Imagen.Length > 0)
                     {
-                        <img src="data:image;base64,@Convert.ToBase64String(rol.Imagen)" alt="Imagen de @rol.Nombre" class="img-thumbnail" width="220" height="220" />
+                        <img src="data:image;base64,@Convert.ToBase64String(rol.Imagen)" alt="Imagen de @rol.Nombre" width="75" height="75" />
                     }
                 </td>
-                <td class="text-center">
+                <td class="text-center font-weight-bold">
                     <a asp-action="Details" asp-route-id="@rol.ID">@rol.Nombre</a>
                 </td>
                 <td class="text-center">@rol.DescripcionR</td>
                 <td class="text-center">
-                    <a asp-action="Edit" asp-route-id="@rol.ID" class="btn btn-primary btn-sm">Editar</a>
-                    <a asp-action="Delete" asp-route-id="@rol.ID" class="btn btn-danger btn-sm">Eliminar</a>
+                    <a asp-action="Edit" asp-route-id="@rol.ID" class="btn btn-warning mb-2">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@rol.ID" class="btn btn-danger">Eliminar</a>
                 </td>
             </tr>
-
         }
     </tbody>
 </table>
-
-<div>
+<p class="text-center">
     <a asp-action="Create" class="btn btn-primary">Añadir Nuevo Rol</a>
-</div>
+</p>

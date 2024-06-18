@@ -92,7 +92,6 @@
                 </a>
             </th>
             <th class="text-center">Estadisticas</th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -103,7 +102,7 @@
                     @if (objeto.Imagen != null && objeto.Imagen.Length > 0)
                     {
                         var base64 = Convert.ToBase64String(objeto.Imagen);
-                        <img src="data:image;base64,@base64" alt="Imagen del objeto" width="75" height="75" />
+                        <img src="data:image;base64,@base64" alt="Imagen del objeto" width="60" height="60" />
                     }
                 </td>
                 <td class="text-center font-weight-bold">@objeto.Nombre</td>
@@ -112,8 +111,8 @@
                 <td class="text-center">@Html.DisplayFor(modelItem => objeto.Coste)</td>
                 <td class="text-center">@Html.DisplayFor(modelItem => objeto.Estadisticas)</td>
                 <td class="text-center">
-                    <a asp-action="Edit" asp-route-id="@objeto.ID" class="btn btn-primary btn-sm">Editar</a>
-                    <a asp-action="Delete" asp-route-id="@objeto.ID" class="btn btn-danger btn-sm">Eliminar</a>
+                    <a asp-action="Edit" asp-route-id="@objeto.ID" class="btn btn-warning mb-2">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@objeto.ID" class="btn btn-danger">Eliminar</a>
                 </td>
             </tr>
         }

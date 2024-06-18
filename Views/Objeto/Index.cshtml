@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Lista de Objetos";
-
 }
 
 <style>
@@ -31,12 +30,21 @@
     .btn-sm {
         margin: 2px;
     }
+
+    .float-left {
+        float: left;
+    }
+
+    .float-right {
+        float: right;
+    }
 </style>
 
 <h1 class="text-center">Lista de Objetos</h1>
 
-<div class="text-right mb-3">
-    <a asp-action="Busqueda" class="btn btn-primary">Aplicar Filtros</a>
+<div class="mb-3">
+    <a asp-action="Busqueda" class="btn btn-primary float-left">Aplicar Filtros</a>
+    <a asp-action="Create" class="btn btn-primary float-right">Añadir Nuevo Objeto</a>
 </div>
 
 <table class="table table-striped">
@@ -60,7 +68,6 @@
                 </a>
             </th>
             <th class="text-center">Estadisticas</th>
-            <th class="text-center"></th>
         </tr>
     </thead>
     <tbody>
@@ -70,7 +77,7 @@
                 <td class="text-center">
                     @if (item.Imagen != null)
                     {
-                        <img src="data:image;base64,@Convert.ToBase64String(item.Imagen)" alt="Imagen" width="75" height="75" />
+                        <img src="data:image;base64,@Convert.ToBase64String(item.Imagen)" alt="Imagen" width="60" height="60" />
                     }
                 </td>
                 <td class="text-center font-weight-bold">@Html.DisplayFor(modelItem => item.Nombre)</td>
@@ -79,13 +86,10 @@
                 <td class="text-center">@Html.DisplayFor(modelItem => item.Coste)</td>
                 <td class="text-center">@Html.DisplayFor(modelItem => item.Estadisticas)</td>
                 <td class="text-center">
-                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-sm">Editar</a>
-                    <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-sm">Eliminar</a>
+                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning mb-2">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger">Eliminar</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-<p>
-    <a asp-action="Create" class="btn btn-primary">Añadir Nuevo Objeto</a>
-</p>

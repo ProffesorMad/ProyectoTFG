@@ -25,22 +25,22 @@
     </div>
     <br />
     <div class="form-group">
-         <label for="imagen" class="control-label">Imagen</label>
+        <label for="imagen" class="control-label col-md-2">Imagen</label>
+        <div class="col-md-4">
          <input type="file" name="imagen" class="form-control" />
          <span asp-validation-for="Imagen" class="text-danger"></span>
+         </div>
     </div>
     <br />
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Guardar" class="btn btn-primary" />
+            &nbsp;&nbsp;
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
         </div>
     </div>
 </form>
 <br />
-<div>
-    <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
-</div>
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
